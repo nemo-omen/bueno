@@ -1,1 +1,1 @@
-[bueno](https://raw.githubusercontent.com/nemo-omen/bueno/main/public/img/BUENO.svg)
+[bueno logo](https://raw.githubusercontent.com/nemo-omen/bueno/main/public/img/BUENO.svg)
