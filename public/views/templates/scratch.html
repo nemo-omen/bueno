@@ -1,0 +1,6 @@
+<% for(let index in posts) { %>
+<b-post-item-slot title="<% posts[index].title %>" subtitle="<% posts[index].subtitle %>"
+  content="<% posts[index].content %>" excerpt="<% posts[index].excerpt %>"
+  featuredImage="<% posts[index].featuredImage %>" _id="<% posts[index]._id %>"
+  createdAt="<% posts[index].createdAt %>"></b-post-item-slot>
+<% } %>

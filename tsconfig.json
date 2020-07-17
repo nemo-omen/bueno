@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "strictNullChecks": false,
+    "allowJs": true,
+    "checkJs": false,
+    "noImplicitAny": false
+  }
+}

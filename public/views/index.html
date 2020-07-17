@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/public/js/index.js" type="module"></script>
+    <!-- <script src="/public/js/create.js" type="module"></script> -->
+    <link rel="stylesheet" href="/public/css/index.css">
+    <title>bueno</title>
+</head>
+
+<body>
+    <main>
+        <aside class=" sidebar">
+            <% include_partial("/partials/header.html") %>
+            <% include_partial("/partials/nav.html") %>
+        </aside>
+        <section class="content-section">
+            <% yield %>
+        </section>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,298 @@
+:root {
+	--white: #fff;
+	--gray: #919191;
+	--lightGray: #666;
+	--black: #000;
+	--orchid: orchid;
+	--deepBlue: #00b0ff;
+	--fireTruck: #e84d49;
+	--boxShadowA: rgba(0, 0, 0, 0.3);
+	--boxShadowB: rgba(0, 0, 0, 0.22);
+}
+
+.marky-toolbar i {
+	padding: 0;
+	margin: 0;
+}
+
+.marky-editor {
+	background-color: #f6f6f6;
+	font-size: 1rem;
+	outline: none;
+	padding: 0.5rem;
+	resize: none;
+	transition: all .2s ease-out;
+	border-left: 1px solid #e4e4e4;
+	border-right: 1px solid #e4e4e4;
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #dadada;
+	color: var(--lightGray);
+}
+
+.marky-editor:focus {
+	color: var(--primary-gray);
+	background-color: #f9f9f9;
+	border: 1px solid rgb(160, 198, 229);
+}
+
+.marky-editor.marky-expanded {
+	box-shadow: 0 19px 60px rgba(0, 0, 0, .3), 0 15px 20px rgba(0, 0, 0, .22);
+	box-shadow: var(--boxShadowA) 0 19px 60px, var(--boxShadowB) 0 15px 20px;
+	height: 90%!important;
+	resize: none;
+	width: 100%!important
+}
+
+.marky-toolbar {
+	padding: 0;
+	margin: 0;
+	min-width: 100%;
+	text-align: left;
+	background-color: #fff;
+}
+/*
+.marky-toolbar button {
+	box-sizing: border-box;
+	background-color: #fff;
+	background-color: var(--white);
+	border: none;
+	color: #666;
+	cursor: pointer;
+	font-size: 16px;
+	line-height: .75rem;
+	max-width: 1.5rem;
+	min-height: 1rem;
+	min-width: 1rem;
+	outline: none;
+	transition: box-shadow .2s ease-out;
+	padding: 0.5rem 1rem 0.5rem 0.5rem;
+	text-align: center;
+}
+
+.marky-toolbar button::-moz-focus-inner {
+	border: 0;
+	padding: 0
+}
+
+.marky-toolbar button:hover {
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .3), 0 1px 5px rgba(0, 0, 0, .22);
+	box-shadow: var(--boxShadowA) 0 1px 1px, var(--boxShadowB) 0 1px 5px;
+	transition: unset
+}
+
+.marky-toolbar button.active, .marky-toolbar button.disabled, .marky-toolbar button:active {
+	background: linear-gradient(#fff * .7, #fff);
+	background: linear-gradient(var(--white) * .7, var(--white));
+	box-shadow: none;
+	color: #919191!important;
+	color: var(--gray)!important
+} */
+
+/* .marky-toolbar button.marky-border-right {
+	border-bottom-right-radius: 4px;
+	border-top-right-radius: 4px
+} */
+
+/* .marky-toolbar button.marky-border-left { */
+	/* border-bottom-left-radius: 4px; */
+	/* border-left: 2px solid #dddddd; */
+	/* border-left: 2px solid var(--gray); */
+	/* border-top-left-radius: 4px */
+/* } */
+/*
+.marky-toolbar button:focus:not(.disabled) {
+	background-color: #00b0ff;
+	background-color: var(--deepBlue);
+	color: #fff;
+	color: var(--white)
+} */
+/*
+@media (min-width:768px) {
+	.marky-toolbar button {
+		font-size: 0.75rem
+	}
+} */
+
+.marky-toolbar button.expand.marky-expanded {
+	background-color: orchid;
+	background-color: var(--orchid);
+	color: #fff;
+	color: var(--white)
+}
+
+.marky-toolbar button.expand.marky-expanded:focus {
+	background-color: #00b0ff;
+	background-color: var(--deepBlue);
+	color: #fff;
+	color: var(--white)
+}
+
+.marky-toolbar button.expand.marky-expanded .active, .marky-toolbar button.expand.marky-expanded:active {
+	background: linear-gradient(orchid * .7, orchid);
+	background: linear-gradient(var(--orchid) * .7, var(--orchid));
+	color: #fff!important;
+	color: var(--white)!important
+}
+/*
+.marky-toolbar button.heading {
+	padding: 0.5rem;
+}
+
+.marky-toolbar button.undo {
+	padding-left: 4px
+}
+
+.marky-toolbar button.redo {
+	padding-right: 4px
+} */
+
+.marky-toolbar .separator {
+	color: #919191;
+	color: var(--gray);
+	padding-left: 6px;
+	padding-right: 6px
+}
+
+.marky-toolbar .separator:nth-child(11) {
+	display: block
+}
+
+@media (min-width:600px) {
+	.marky-toolbar .separator:nth-child(11) {
+		display: inline
+	}
+}
+
+.marky-dialogs {
+	position: relative
+}
+
+.marky-dialogs .dialog {
+	background: #fff;
+	background: var(--white);
+	border: 1px solid #919191;
+	border: 1px solid var(--gray);
+	box-shadow: 0 10px 15px rgba(0, 0, 0, .3), 0 5px 10px rgba(0, 0, 0, .22);
+	box-shadow: var(--boxShadowA) 0 10px 15px, var(--boxShadowB) 0 5px 10px;
+	margin: -50px .7rem .7rem;
+	opacity: 0;
+	padding: 1rem;
+	position: absolute;
+	transition: all .2s ease-out;
+	visibility: hidden
+}
+
+.marky-dialogs .dialog.toggled {
+	margin-top: .7rem;
+	opacity: 1;
+	visibility: visible
+}
+
+.marky-dialogs .dialog.heading-dialog {
+	margin-left: 0;
+	padding: 0
+}
+
+.marky-dialogs .dialog.heading-dialog.toggled {
+	margin-top: -.5rem
+}
+
+.marky-dialogs .dialog.heading-dialog ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	width: 2.9rem
+}
+
+.marky-dialogs .dialog input {
+	border: none;
+	border-bottom: 3px solid #919191;
+	border-bottom: 3px solid var(--gray);
+	font-size: 1rem;
+	margin-left: .2rem;
+	margin-right: .2rem;
+	outline: none;
+	transition: all .2s ease-out
+}
+
+.marky-dialogs .dialog input:focus {
+	border-color: #00b0ff;
+	border-color: var(--deepBlue)
+}
+
+.marky-dialogs .dialog button {
+	background-color: #00b0ff;
+	background-color: var(--deepBlue);
+	border: 1px solid #919191;
+	border: 1px solid var(--gray);
+	border-radius: 4px;
+	color: #fff;
+	color: var(--white);
+	margin-bottom: 0;
+	margin-left: .2rem;
+	max-width: none
+}
+
+.marky-dialogs .dialog button:active {
+	background: linear-gradient(#00b0ff * .7, #00b0ff);
+	background: linear-gradient(var(--deepBlue) * .7, var(--deepBlue));
+	color: #fff!important;
+	color: var(--white)!important
+}
+
+.marky-dialogs .dialog .heading-button, .marky-dialogs .dialog button:focus {
+	background-color: #fff;
+	background-color: var(--white);
+	color: #666;
+	color: var(--lightGray)
+}
+
+.marky-dialogs .dialog .heading-button {
+	border: none;
+	border-radius: 0;
+	box-shadow: none;
+	margin-left: 0;
+	width: 2.9rem
+}
+
+.marky-dialogs .dialog .heading-button:focus, .marky-dialogs .dialog .heading-button:hover {
+	background-color: #00b0ff;
+	background-color: var(--deepBlue);
+	color: #fff;
+	color: var(--white)
+}
+
+.marky-dialogs .dialog .heading-button:active {
+	background: linear-gradient(#00b0ff * .7, #00b0ff);
+	background: linear-gradient(var(--deepBlue) * .7, var(--deepBlue));
+	color: #fff!important;
+	color: var(--white)!important
+}
+
+.marky-dialogs .dialog .heading-button[title="Remove Heading"]:focus, .marky-dialogs .dialog .heading-button[title="Remove Heading"]:hover {
+	background-color: #e84d49;
+	background-color: var(--fireTruck);
+	color: #fff;
+	color: var(--white)
+}
+
+.marky-dialogs .dialog .heading-button[title="Remove Heading"]:active {
+	background: linear-gradient(#e84d49 * .7, #e84d49);
+	background: linear-gradient(var(--fireTruck) * .7, var(--fireTruck));
+	color: #fff!important;
+	color: var(--white)!important
+}
+
+[id^=marky-mark-].marky-expanded {
+	background: #fff;
+	background: var(--white);
+	box-sizing: border-box;
+	height: 100%;
+	left: 0;
+	padding: 1rem;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 1000
+}
