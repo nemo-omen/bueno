@@ -16,6 +16,7 @@ const server = new Drash.Http.Server({
     CreateResource,
     ResourcesResource,
     AboutResource,
+    LoginResource
   ],
   static_paths: ["/public"],
   template_engine: true,

@@ -20,8 +20,7 @@
   },
   "snowpack": {
     "install": [
-      "lit-element",
-      "moment"
+      "lit-element"
     ]
   }
 }

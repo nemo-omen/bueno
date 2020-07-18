@@ -1,6 +1,5 @@
 {
   "imports": {
-    "lit-element": "./lit-element.js",
-    "moment": "./moment.js"
+    "lit-element": "./lit-element.js"
   }
 }
