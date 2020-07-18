@@ -24,13 +24,13 @@ npx snowpack
 
 That way [snowpack](https://www.snowpack.dev/) can make the LitElement module available inside of the `public/web_modules` directory, which we can then use as an ESM module in our front-end.
 
-##Todo
+## Todo
 - Auth
 - DB
 - Find a nicer library for the editor component
 - Start using [Trex]() for dependency local management(?)
 
-##Inspiration/Resources
+## Inspiration/Resources
 [Develop and docerize a blogging API with deno](https://dev.to/fhsinchy/develop-and-dockerize-a-blogging-api-with-deno-oak-and-mysql-170e)
 
 [Main branch of above tutorial](https://github.com/fhsinchy/deno-blog/blob/master/controllers/auth.ts)
