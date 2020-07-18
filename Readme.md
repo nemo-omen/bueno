@@ -29,3 +29,22 @@ That way [snowpack](https://www.snowpack.dev/) can make the LitElement module av
 - DB
 - Find a nicer library for the editor component
 - Start using [Trex]() for dependency local management(?)
+
+##Inspiration/Resources
+[Develop and docerize a blogging API with deno](https://dev.to/fhsinchy/develop-and-dockerize-a-blogging-api-with-deno-oak-and-mysql-170e)
+
+[Main branch of above tutorial](https://github.com/fhsinchy/deno-blog/blob/master/controllers/auth.ts)
+
+[Authentication for actual humans](https://dev.to/ghardin137/web-authentication-for-actual-humans-part-one-36ho)
+
+[Drash - resource-level middleware](https://drash.land/drash/#/tutorials/middleware/adding-resource-level-middleware)
+
+[slugify](https://deno.land/x/slugify)
+
+[bcrypt](https://deno.land/x/bcrypt)
+
+[djwt](https://deno.land/x/djwt)
+
+[deno postgres driver](https://deno.land/x/postgres)
+
+[deno mongo](https://deno.land/x/mongo)
