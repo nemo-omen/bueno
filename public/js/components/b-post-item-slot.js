@@ -12,17 +12,12 @@ class BuenoPostItemSlot extends LitElement {
       title: { type: String },
       subtitle: { type: String },
       excerpt: { type: String },
+      slug: { type: String }
     };
   }
 
   static get styles() {
     return css`
-a {
-  text-decoration: none;
-}
-a:hover h2 {
-  text-decoration: underline;
-}
 .post-list-item-section {
   font-size: 24px;
   display: flex;
@@ -34,8 +29,6 @@ a:hover h2 {
 }
 .post-list-item-header {
   background-color: #fff;
-  /* color: #282828; */
-  /* color: crimson; */
   color: var(--fireTruck);
   margin-bottom: 1rem;
 }
@@ -52,12 +45,17 @@ a:hover h2 {
   line-height: 150%;
   font-size: 1rem;
   margin: 0;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }`;
   }
 
   render() {
     return html`
-    <a href="#">
     <section class="post-list-item-section">
       <header class="post-list-item-header">
           <slot name="post-title"></slot>
@@ -67,7 +65,6 @@ a:hover h2 {
           <slot name="post-excerpt"></slot>
         </footer>
       </section>
-    </a>
     `;
   }
 }

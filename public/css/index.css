@@ -7,6 +7,7 @@
 /* per-page stylesheets are named the same as the page they style */
 /* i.e: create.html is styled by create.css */
 @import url('/public/css/home.css');
+@import url('/public/css/post.css');
 @import url('/public/css/about.css');
 @import url('/public/css/resources.css');
 @import url('/public/css/create.css');
@@ -69,10 +70,6 @@ nav {
 }
 nav a {
     color: var(--primary-gray);
-    text-decoration: none;
-}
-nav a:hover {
-    text-decoration: underline;
 }
 .sidebar {
     grid-column: 1/4;
@@ -106,4 +103,13 @@ svg {
 .content-section {
     grid-column: 4/13;
     margin: 2rem 0;
+}
+
+/* Text styles */
+a, h2 a, p a {
+  text-decoration: none;
+  color: inherit;
+}
+a:hover {
+  text-decoration: underline;
 }

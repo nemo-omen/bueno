@@ -1,0 +1,22 @@
+<% extends("/index.html") %>
+
+<section id="post-section">
+  <section class="post-header">
+    <% if(post.featuredImage) { %>
+    <section class="post-featured-image" style="background-image: url('<% post.featuredImage %>')"
+      title=" <% post.title %>">
+    </section>
+    <% } %>
+
+    <h2 class="post-title"><% post.title %></h2>
+
+    <% if(post.subtitle) { %>
+    <h3 class="post-subtitle"><% post.subtitle %></h3>
+    <% } %>
+
+    <p class="post-date"><% post.createdAt %></p>
+  </section>
+  <section class="post-body">
+    <% post.content %>
+  </section>
+</section>

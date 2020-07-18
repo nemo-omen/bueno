@@ -2,10 +2,10 @@
 
 <section id="post-list-section">
   <% for(let index in posts) { %>
-  <b-post-item-slot subtitle="<% posts[index].subtitle %>" _id="<% posts[index]._id %>">
-    <h2 slot="post-title"><% posts[index].title %></h2>
+  <b-post-item-slot subtitle="<% posts[index].subtitle %>" _id="<% posts[index]._id %>" slug="<% posts[index].slug %>">
+    <h2 slot="post-title"><a href="/<% posts[index].slug %>"><% posts[index].title %></a></h2>
     <p slot="post-date"><% posts[index].createdAt %></p>
-    <p slot="post-excerpt"><% posts[index].excerpt %></p>
+    <p slot="post-excerpt"><a href="/<% posts[index].slug %>"><% posts[index].excerpt %></a></p>
   </b-post-item-slot>
   <% } %>
 </section>

@@ -28,7 +28,9 @@ That way [snowpack](https://www.snowpack.dev/) can make the LitElement module av
 - Auth
 - DB
 - Find a nicer library for the editor component
-- Start using [Trex]() for dependency local management(?)
+  - [Sir Trevor?](http://madebymany.github.io/sir-trevor-js/docs.html)
+  - [ProseMirror?](https://prosemirror.net/)
+- Start using [Trex](https://nest.land/package/Trex) for dependency local management(?)
 
 ## Inspiration/Resources
 [Develop and docerize a blogging API with deno](https://dev.to/fhsinchy/develop-and-dockerize-a-blogging-api-with-deno-oak-and-mysql-170e)

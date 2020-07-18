@@ -1,0 +1,32 @@
+#post-section {
+  display: flex;
+  flex-direction: column;
+}
+.post-header {
+  background-color: #fff;
+  /* color: var(--fireTruck); */
+  margin: 1rem 0;
+}
+.post-featured-image {
+  min-height: 40vmin;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.post-title {
+    font-size: 1.5rem;
+    margin: 1rem 0 0.25rem 0;
+    padding: 0;
+}
+.post-date {
+    margin: 0;
+    font-size: 0.75rem;
+}
+
+.post-body a {
+  text-decoration: none;
+  color: var(--fireTruck);
+}
+.post-body a:hover {
+  text-decoration: underline;
+}
