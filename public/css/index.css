@@ -12,6 +12,7 @@
 @import url('/public/css/resources.css');
 @import url('/public/css/create.css');
 @import url('/public/css/marky.css');
+@import url('/public/css/prism-material-light.css');
 @import url('/public/css/header.css');
 
 /* ~ Global Styles ~ */
@@ -78,21 +79,6 @@ nav a {
 .header-logo svg, .header-logo img {
   height: 2rem;
   width: auto;
-}
-header {
-    padding: 0;
-    margin: 0;
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
-}
-.header-logo {
-  text-align: right;
-}
-svg {
-  color: #282828;
 }
 .tagline {
 	font-size: 1.25rem;
