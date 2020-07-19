@@ -1,76 +1,100 @@
+import { load } from "https://deno.land/x/tiny_env/mod.ts";
 import { v4 } from "https://deno.land/std/uuid/mod.ts";
 import { moment } from "https://deno.land/x/moment/moment.ts";
 import { slugify } from "https://deno.land/x/slugify/mod.ts";
+import { posts } from "./dummyPosts.ts";
+import {
+  DataTypes,
+  Database,
+  Model,
+} from "https://deno.land/x/denodb@v1.0.4/mod.ts";
 
-const dummyJS = "```console.log('Hello, world!')```";
+// load .env file @ root of project
+await load();
 
-const posts: Array<object> = [
-  {
-    _id: v4.generate(),
-    createdAt: moment().format("MMMM Do YYYY, h:mm:ss a"),
-    title: "Web components and deno",
-    subtitle: "A match made in buildless heaven",
-    content:
-      `Web components are a really great fit if you want to build modular apps without using a build tool like Webpack or Rollup.`,
-    excerpt:
-      `Why deno might be the perfect runtime environment for developing buildless web apps.`,
-    featuredImage: "https://picsum.photos/800/400",
-    slug: "web_components_and_deno",
-  },
-  {
-    _id: v4.generate(),
-    createdAt: moment().format("MMMM Do YYYY, h:mm:ss a"),
-    title: "Why I like developing without build tools",
-    subtitle: "It's all about simplicity",
-    content:
-      `Remember a year or so ago when people were sharing Marie Kondo advice all over the place? Developing without having to use tooling (unless you really want to) reminds me of that. It's not that tools like [Webpack](https://webpack.js.org/), [Rollup](https://rollupjs.org/guide/en/), [Parcel](https://parceljs.org/), etc are bad. They're truly fantastic at what they do. It's just that configuring them, finding the proper plugins for what I'm trying to do, and wrestling with them when something isn't working correctly, *doesn't spark joy for me*.`,
-    excerpt:
-      `Coming back to web development after several years away was tough, until I discovered a different way.`,
-    featuredImage: "https://picsum.photos/800/400",
-    slug: "why_i_like_developing_without_build_tools",
-  },
-  {
-    _id: v4.generate(),
-    createdAt: moment().format("MMMM Do YYYY, h:mm:ss a"),
-    title: "How I made this blog",
-    subtitle: "Part 1: Introduction and setup",
-    content:
-      `This is going to be a series of blog posts about how I built this blog with deno, Drash, and LitElement.`,
-    excerpt:
-      `Let's make a full-featured blogging app without using any build tools, just  to see if we can.`,
-    featuredImage: "https://picsum.photos/800/400",
-    slug: "how_i_made_this_blog",
-  },
-  {
-    _id: v4.generate(),
-    createdAt: moment().format("MMMM Do YYYY, h:mm:ss a"),
-    title: "An example without a featured image",
-    content:
-      `I just want to have an example post without a featured image to work with so I can make sure the styling is good. The other thing I should make sure to do is include some code blocks, because that's certainly going to be needed in a blog about coding.
+// config db
+const db = new Database({
+  dialect: "postgres",
+  debug: false,
+}, {
+  host: Deno.env.get("DB_HOST"),
+  port: parseInt(Deno.env.get("DB_PORT")),
+  username: Deno.env.get("DB_USER"),
+  password: Deno.env.get("DB_PASSWORD"),
+  database: "bueno_blog",
+});
 
-<pre><code class="lang-javascript">console.log('Hello, world!')</code></pre>
+// define post model
+class Post extends Model {
+  static table = "posts";
+  static timestamps = true;
 
-Okay, let's do another paragraph with some inline code. How about a nice <code class="lang-javascript">const name = 'Jeff Caldwell';</code> to see how it displays inside a paragraph.
+  static fields = {
+    _id: {
+      type: DataTypes.UUID,
+    },
+    slug: DataTypes.STRING,
+    publishDateString: DataTypes.STRING,
+    title: DataTypes.STRING,
+    subtitle: DataTypes.STRING,
+    excerpt: DataTypes.STRING,
+    content: DataTypes.STRING,
+    featuredImage: DataTypes.STRING,
+  };
+}
 
-I might need to use another theme or make some customizations to this one.
-`,
-    excerpt:
-      `We're going to need a dummy example with some code blocks to make sure we're formatting that correctly.`,
-    slug: "an_example_without_a_featured_image",
-  },
-];
+// connect model to db & sync
+db.link([Post]);
+await db.sync();
 
+// class & methods for interacting with db
 export class PostsService {
   public async allPosts() {
-    const myPosts = [...posts];
+    const response = await Post.orderBy({ updatedAt: "desc" }).all();
+
+    const myPosts = response.map((post) => {
+      if (post.excerpt === null) {
+        const newExcerpt = post.content.substring(0, 150);
+        return { ...post, excerpt: newExcerpt };
+      } else {
+        return { ...post };
+      }
+    });
+
     return myPosts;
   }
+
   public async findPostBySlug(postSlug) {
-    const returnedPost = posts.find((post: any) => post.slug === postSlug);
-    return returnedPost;
+    const returnedPost = await Post.where("slug", postSlug).get();
+
+    const mappedReturn = returnedPost.map((post) => {
+      return { ...post };
+    });
+
+    return mappedReturn[0];
   }
+
   public async createPost(post: any) {
-    posts.push({ ...post });
+    await Post.create({
+      _id: post._id,
+      publishDateString: post.createdAt,
+      slug: post.slug,
+      title: post.title,
+      subtitle: post.subtitle,
+      excerpt: post.excerpt,
+      content: post.content,
+      featuredImage: post.featuredImage,
+    });
+
     return { ok: true };
+  }
+
+  public async updatePost(post: any) {
+    await Post.where("_id", post._id).update({
+      title: post.title,
+      subtitle: post.suntitle,
+      content: post.content,
+      featuredImage: post.featuredImage,
+    });
   }
 }

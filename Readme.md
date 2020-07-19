@@ -33,7 +33,7 @@ That way [snowpack](https://www.snowpack.dev/) can make the LitElement module av
 - Start using [Trex](https://nest.land/package/Trex) for dependency local management(?)
 
 ## Inspiration/Resources
-[Develop and docerize a blogging API with deno](https://dev.to/fhsinchy/develop-and-dockerize-a-blogging-api-with-deno-oak-and-mysql-170e)
+[Develop and dockerize a blogging API with deno](https://dev.to/fhsinchy/develop-and-dockerize-a-blogging-api-with-deno-oak-and-mysql-170e)
 
 [Main branch of above tutorial](https://github.com/fhsinchy/deno-blog/blob/master/controllers/auth.ts)
 

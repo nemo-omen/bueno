@@ -9,6 +9,7 @@ export default class HomeResource extends Drash.Http.Resource {
   public async GET() {
     const svcPosts = await ps.allPosts();
     const posts = [...svcPosts];
+    console.log("Posts: ", posts);
 
     this.response.body = this.response.render("/templates/home.html", {
       posts: posts,

@@ -3,7 +3,7 @@ import "./components/b-dropzone.js";
 
 const titleInput = document.getElementById("title");
 const subtitleInput = document.getElementById("subtitle");
-
+const excerptInput = document.getElementById("excerpt");
 const markdownElement = document.querySelector(".markdown-input");
 const markdownInput = markymark(markdownElement);
 const editor = document.querySelector("textarea.marky-editor");
@@ -35,22 +35,24 @@ async function handleSave() {
   const title = titleInput.value;
   const subtitle = subtitleInput.value;
   const markdownContent = editor.value;
+  const excerpt = excerptInput.value;
   const newPost = {
     title: title,
     subtitle: subtitle,
     content: markdownContent,
+    excerpt: excerpt,
   };
-  console.log(newPost);
 }
 
 async function handlePublish() {
   const title = titleInput.value;
   const subtitle = subtitleInput.value;
+  const excerpt = excerptInput.value;
   const markdownContent = editor.value;
   const newPost = {
     title: title,
     subtitle: subtitle,
-    excerpt: "",
+    excerpt: excerpt,
     content: markdownContent,
   };
   const response = await fetch("/create", {
@@ -62,10 +64,7 @@ async function handlePublish() {
     body: JSON.stringify({ data: newPost }),
   });
   if (response.ok) {
-    console.log(response);
-    setTimeout(() => {
-      window.location = "/";
-    }, 1000);
+    window.location = "/";
   } else {
     console.log(response.message);
   }

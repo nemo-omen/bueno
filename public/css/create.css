@@ -6,7 +6,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-    height: 5rem;
+    height: 7rem;
     margin: 1rem 0;
 }
 .post-create-meta-input {
@@ -15,16 +15,17 @@
     flex-direction: column;
     justify-content: space-between;
 }
-.post-create-meta-input input[type="text"] {
+.post-create-meta-input input[type="text"], .post-create-meta-input textarea {
     outline: none;
-    padding: 0.5rem;
-    font-size: 0.8rem;
+    padding: 0.25rem;
+    font-size: 0.75rem;
     background-color: var(--primaryGray-300);
     color: var(--primaryGray-800);
     border: 1px solid var(--primaryGray-500);
     transition: all .2s ease-out;
+    font-family: 'Mulish', sans-serif;
 }
-.post-create-meta-input input[type="text"]:focus {
+.post-create-meta-input input[type="text"]:focus, .post-create-meta-input textarea:focus {
     color: var(--primaryGray-900);
 	background-color: var(--primaryGray-200);
 	border: 1px solid var(--deepBlue);
@@ -62,25 +63,3 @@
     justify-content: flex-end;
     margin: 1rem 0;
 }
-/* .post-create-control button {
-    border: none;
-    font-size: 0.8rem;
-    padding: 0.25rem 0.5rem;
-    margin-left: 1rem;
-    transition: all .2s ease-out;
-    color: var(--primaryGray-900);
-}
-.post-publish-button {
-    background-color: var(--fireTruck-300);
-}
-.post-publish-button:hover {
-    background-color: var(--fireTruck-400);
-    color: var(--primaryGray-300);
-}
-.post-draft-button {
-    background-color: var(--deepBlue-300);
-}
-.post-draft-button:hover {
-    background-color: var(--deepBlue-400);
-    color: var(--primaryGray-300);
-} */

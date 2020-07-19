@@ -17,21 +17,18 @@ export default class CreateResource extends Drash.Http.Resource {
   public async POST() {
     const requestPost = this.request.getBodyParam("data");
     const postTitle = requestPost.title;
-    const postExcerpt = requestPost.excerpt === ""
-      ? requestPost.content.substring(0, 200)
-      : requestPost.excerpt;
     const post: any = {
       ...requestPost,
       _id: v4.generate(),
       createdAt: moment().format("MMMM Do YYYY, h:mm:ss a"),
       featuredImage: "https://picsum.photos/800/400",
-      excerpt: postExcerpt,
       slug: slugify(postTitle, {
         replacement: "_",
         remove: null,
         lower: true,
       }),
     };
+    console.log(post);
     const response = await ps.createPost(post);
     if (response.ok) {
       return this.response.redirect(301, `/${post.slug}`);

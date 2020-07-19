@@ -20,7 +20,7 @@ class BuenoDropzone extends LitElement {
       box-sizing: border-box;
       background-color: #f6f6f6;
       width: 100%;
-      height: 5rem;
+      height: 7rem;
       margin: 0;
       position: relative;
       border: 1px solid #e4e4e4;

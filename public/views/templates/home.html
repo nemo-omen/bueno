@@ -4,7 +4,7 @@
   <% for(let index in posts) { %>
   <b-post-item-slot subtitle="<% posts[index].subtitle %>" _id="<% posts[index]._id %>" slug="<% posts[index].slug %>">
     <h2 slot="post-title"><a href="/<% posts[index].slug %>"><% posts[index].title %></a></h2>
-    <p slot="post-date"><% posts[index].createdAt %></p>
+    <p slot="post-date"><% posts[index].publishDateString %></p>
     <p slot="post-excerpt"><a href="/<% posts[index].slug %>"><% posts[index].excerpt %></a></p>
   </b-post-item-slot>
   <% } %>
