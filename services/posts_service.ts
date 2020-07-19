@@ -93,6 +93,7 @@ export class PostsService {
     await Post.where("_id", post._id).update({
       title: post.title,
       subtitle: post.suntitle,
+      excerpt: post.excerpt,
       content: post.content,
       featuredImage: post.featuredImage,
     });
