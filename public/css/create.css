@@ -7,7 +7,7 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
     height: 5rem;
-    margin: 1rem 0 2rem 0;
+    margin: 1rem 0;
 }
 .post-create-meta-input {
     grid-column: 1/4;
@@ -16,15 +16,18 @@
     justify-content: space-between;
 }
 .post-create-meta-input input[type="text"] {
+    outline: none;
     padding: 0.5rem;
-    font-size: 1rem;
-    background-color: var(--inputbg);
-    border: 1px solid #e4e4e4;
+    font-size: 0.8rem;
+    background-color: var(--primaryGray-300);
+    color: var(--primaryGray-800);
+    border: 1px solid var(--primaryGray-500);
+    transition: all .2s ease-out;
 }
 .post-create-meta-input input[type="text"]:focus {
-    color: var(--primary-gray);
-	background-color: var(--focusbg);
-	border: 1px solid rgb(160, 198, 229);
+    color: var(--primaryGray-900);
+	background-color: var(--primaryGray-200);
+	border: 1px solid var(--deepBlue);
 }
 .marky-mark {
     padding: 0;
@@ -40,13 +43,44 @@
     border: none;
     border-radius: 0;
     background-color: #fff;
+    color: var(--primaryGray-800);
 }
 .marky-toolbar button:hover {
-    background-color: #f1f1f1;
+    background-color: var(--primaryGray-200);
+    color: var(--deepBlue-700);
 }
 .marky-editor {
     margin: 0;
     width: 100%;
     resize: none;
-    height: 90vmin;
+    height: 60vmin;
+    font-size: 0.8rem;
 }
+.post-create-control {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 1rem 0;
+}
+/* .post-create-control button {
+    border: none;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    margin-left: 1rem;
+    transition: all .2s ease-out;
+    color: var(--primaryGray-900);
+}
+.post-publish-button {
+    background-color: var(--fireTruck-300);
+}
+.post-publish-button:hover {
+    background-color: var(--fireTruck-400);
+    color: var(--primaryGray-300);
+}
+.post-draft-button {
+    background-color: var(--deepBlue-300);
+}
+.post-draft-button:hover {
+    background-color: var(--deepBlue-400);
+    color: var(--primaryGray-300);
+} */

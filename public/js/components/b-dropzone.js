@@ -5,10 +5,9 @@ import {
 } from "../../web_modules/lit-element.js";
 
 class BuenoDropzone extends LitElement {
-
   connectedCallback() {
     super.connectedCallback();
-    const events = ['dragenter', 'dragleave', 'dragover', 'drop'];
+    const events = ["dragenter", "dragleave", "dragover", "drop"];
   }
   static get styles() {
     return css`
@@ -21,7 +20,7 @@ class BuenoDropzone extends LitElement {
       box-sizing: border-box;
       background-color: #f6f6f6;
       width: 100%;
-      height: 6rem;
+      height: 5rem;
       margin: 0;
       position: relative;
       border: 1px solid #e4e4e4;
@@ -53,7 +52,7 @@ class BuenoDropzone extends LitElement {
     `;
   }
   handleClick() {
-    alert('Hello');
+    alert("Hello");
   }
 }
 

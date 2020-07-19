@@ -69,4 +69,8 @@ export class PostsService {
     const returnedPost = posts.find((post: any) => post.slug === postSlug);
     return returnedPost;
   }
+  public async createPost(post: any) {
+    posts.push({ ...post });
+    return { ok: true };
+  }
 }

@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+@import url('https://use.fontawesome.com/releases/v5.14.0/css/all.css');
 /* per-page stylesheets are named the same as the page they style */
 /* i.e: create.html is styled by create.css */
 @import url('/public/css/home.css');
@@ -16,16 +17,54 @@
 @import url('/public/css/header.css');
 
 /* ~ Global Styles ~ */
-* {
-    --primary-gray: #282828;
-    --light-gray: #919191;
-	--orchid: orchid;
-	--deepBlue: #00b0ff;
-    --fireTruck: #e84d49;
+:root {
 	--boxShadowA: rgba(0, 0, 0, 0.3);
     --boxShadowB: rgba(0, 0, 0, 0.22);
-    --inputbg: #f6f6f6;
-    --focusbg: #f9f9f9;
+    --primaryGray: #f9f9f9;
+    --primaryGray-100: #FCFCFC;
+    --primaryGray-200: #F7F7F7;
+    --primaryGray-300: #F3F3F3;
+    --primaryGray-400: #E9E9E9;
+    --primaryGray-500: #E0E0E0;
+    --primaryGray-600: #CACACA;
+    --primaryGray-700: #868686;
+    --primaryGray-800: #656565;
+    --primaryGray-900: #434343;
+
+    --darkGray: #282828;
+    --darkGray-100: #EAEAEA;
+    --darkGray-200: #C9C9C9;
+    --darkGray-300: #A9A9A9;
+    --darkGray-400: #696969;
+    --darkGray-500: #282828;
+    --darkGray-600: #242424;
+    --darkGray-700: #181818;
+    --darkGray-800: #121212;
+    --darkGray-900: #0C0C0C;
+
+    --fireTruck: #e84d49;
+    --fireTruck-100: #FDEDED;
+    --fireTruck-200: #F9D3D2;
+    --fireTruck-300: #F6B8B6;
+    --fireTruck-400: #EF8280;
+    --fireTruck-500: #E84D49;
+    --fireTruck-600: #D14542;
+    --fireTruck-700: #8B2E2C;
+    --fireTruck-800: #682321;
+    --fireTruck-900: #461716;
+
+	--deepBlue: #00b0ff;
+    --deepBlue-100: #E6F7FF;
+    --deepBlue-200: #BFEBFF;
+    --deepBlue-300: #99DFFF;
+    --deepBlue-400: #4DC8FF;
+    --deepBlue-500: #00B0FF;
+    --deepBlue-600: #009EE6;
+    --deepBlue-700: #006A99;
+    --deepBlue-800: #004F73;
+    --deepBlue-900: #00354D;
+    }
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -33,7 +72,7 @@
 html, body {
     font-family: 'Mulish', sans-serif;
     font-size: 24px;
-    color: var(--primary-gray);
+    color: var(--darkGray);
 }
 main {
     display: grid;
@@ -60,18 +99,7 @@ main {
         flex-direction: column;
     }
 }
-nav {
-    /* margin: 1rem; */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-end;
-    letter-spacing: 0.15em;
-    line-height: 1.75rem;
-}
-nav a {
-    color: var(--primary-gray);
-}
+
 .sidebar {
     grid-column: 1/4;
     text-align: right;
@@ -83,8 +111,20 @@ nav a {
 .tagline {
 	font-size: 1.25rem;
 	text-decoration: none;
-  color: #282828;
+  color: var(--darkGray);
   font-family: 'Quicksand', sans-serif;
+}
+nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    letter-spacing: 0.15em;
+    line-height: 1.75rem;
+    margin: 0.5rem 0;
+}
+nav a {
+    color: var(--darkGray);
 }
 .content-section {
     grid-column: 4/13;

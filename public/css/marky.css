@@ -16,23 +16,22 @@
 }
 
 .marky-editor {
-	background-color: #f6f6f6;
-	font-size: 1rem;
+	background-color: var(--primaryGray-300);
 	outline: none;
 	padding: 0.5rem;
 	resize: none;
 	transition: all .2s ease-out;
-	border-left: 1px solid #e4e4e4;
-	border-right: 1px solid #e4e4e4;
-	border-bottom: 1px solid #e4e4e4;
-	border-top: 1px solid #dadada;
-	color: var(--lightGray);
+	border-left: 1px solid var(--primaryGray-500);
+	border-right: 1px solid var(--primaryGray-500);
+	border-bottom: 1px solid var(--primaryGray-500);
+	border-top: 1px solid var(--primaryGray-600);
+	color: var(--primaryGray-800);
 }
 
 .marky-editor:focus {
-	color: var(--primary-gray);
-	background-color: #f9f9f9;
-	border: 1px solid rgb(160, 198, 229);
+	color: var(--primaryGray-900);
+	background-color: var(--primaryGray-100);
+	border: 1px solid var(--deepBlue);
 }
 
 .marky-editor.marky-expanded {
@@ -50,69 +49,6 @@
 	text-align: left;
 	background-color: #fff;
 }
-/*
-.marky-toolbar button {
-	box-sizing: border-box;
-	background-color: #fff;
-	background-color: var(--white);
-	border: none;
-	color: #666;
-	cursor: pointer;
-	font-size: 16px;
-	line-height: .75rem;
-	max-width: 1.5rem;
-	min-height: 1rem;
-	min-width: 1rem;
-	outline: none;
-	transition: box-shadow .2s ease-out;
-	padding: 0.5rem 1rem 0.5rem 0.5rem;
-	text-align: center;
-}
-
-.marky-toolbar button::-moz-focus-inner {
-	border: 0;
-	padding: 0
-}
-
-.marky-toolbar button:hover {
-	box-shadow: 0 1px 1px rgba(0, 0, 0, .3), 0 1px 5px rgba(0, 0, 0, .22);
-	box-shadow: var(--boxShadowA) 0 1px 1px, var(--boxShadowB) 0 1px 5px;
-	transition: unset
-}
-
-.marky-toolbar button.active, .marky-toolbar button.disabled, .marky-toolbar button:active {
-	background: linear-gradient(#fff * .7, #fff);
-	background: linear-gradient(var(--white) * .7, var(--white));
-	box-shadow: none;
-	color: #919191!important;
-	color: var(--gray)!important
-} */
-
-/* .marky-toolbar button.marky-border-right {
-	border-bottom-right-radius: 4px;
-	border-top-right-radius: 4px
-} */
-
-/* .marky-toolbar button.marky-border-left { */
-	/* border-bottom-left-radius: 4px; */
-	/* border-left: 2px solid #dddddd; */
-	/* border-left: 2px solid var(--gray); */
-	/* border-top-left-radius: 4px */
-/* } */
-/*
-.marky-toolbar button:focus:not(.disabled) {
-	background-color: #00b0ff;
-	background-color: var(--deepBlue);
-	color: #fff;
-	color: var(--white)
-} */
-/*
-@media (min-width:768px) {
-	.marky-toolbar button {
-		font-size: 0.75rem
-	}
-} */
-
 .marky-toolbar button.expand.marky-expanded {
 	background-color: orchid;
 	background-color: var(--orchid);
@@ -133,18 +69,6 @@
 	color: #fff!important;
 	color: var(--white)!important
 }
-/*
-.marky-toolbar button.heading {
-	padding: 0.5rem;
-}
-
-.marky-toolbar button.undo {
-	padding-left: 4px
-}
-
-.marky-toolbar button.redo {
-	padding-right: 4px
-} */
 
 .marky-toolbar .separator {
 	color: #919191;
