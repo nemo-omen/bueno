@@ -10,11 +10,13 @@ export default class CreateResource extends Drash.Http.Resource {
   static paths = ["/create"];
 
   public async GET() {
+    console.log("create Get requested");
     this.response.body = this.response.render("/templates/create.html");
     return this.response;
   }
 
   public async POST() {
+    console.log("create POST requested");
     const requestPost = this.request.getBodyParam("data");
     const postTitle = requestPost.title;
     const post: any = {
@@ -41,11 +43,13 @@ export default class CreateResource extends Drash.Http.Resource {
   }
 
   public DELETE() {
+    console.log("create DELETE requested");
     this.response.body = JSON.stringify({ message: "Not implemented" });
     return this.response;
   }
 
   public PUT() {
+    console.log("create PUT requested");
     this.response.body = JSON.stringify({ message: "Not implemented" });
     return this.response;
   }

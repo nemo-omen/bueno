@@ -9,11 +9,14 @@
       <input type="text" name="subtitle" id="subtitle" placeholder="Subtitle">
       <textarea id="excerpt" placeholder="Post introduction or excerpt" maxlength="250"></textarea>
     </section>
-    <b-dropzone></b-dropzone>
+    <section id="image-upload-section">
+      <p class="image-upload-paragraph">Drag or click to upload featured image.</p>
+      <input type="file" name="featured-image" id="featured-image" accept="image/*">
+    </section>
   </section>
   <section class="markdown-input"></section>
-  <!-- <section class="post-create-control">
-    <button class="post-draft-button">Save Draft</button>
-    <button class="post-publish-button">Publish</button>
-  </section> -->
+  <section class="post-create-secondary-control">
+    <button class="post-draft-secondary-button">Save Draft</button>
+    <button class="post-publish-secondary-button">Publish</button>
+  </section>
 </section>

@@ -32,6 +32,7 @@ class BuenoDropzone extends LitElement {
       padding: 0.5rem;
       font-size: 0.75rem;
       cursor: pointer;
+      transition: all .2s ease-out;
     }
     .active {
       color: var(--primary-gray);
@@ -45,14 +46,86 @@ class BuenoDropzone extends LitElement {
   }
   render() {
     return html`
-    <section @click="${this.handleClick}" class="dropzone-container">
+    <section id="dropzone-container">
       <p>Drop image here or click to select</p>
-      <input type="file">
+      <input type="file" id="image-input" @change="${
+      this.uploadFeaturedImage(featuredImageInput.files[0])
+    }">
     </section>
     `;
   }
-  handleClick() {
-    alert("Hello");
+  connectedCallback() {
+    super.connectedCallback();
+    const imageUploadSection = this.shadowRoot.getElementById(
+      "dropzone-container",
+    );
+    const ddEvents = ["dragenter", "dragleave", "dragover", "drop"];
+    const highlightEvents = ["dragenter", "dragover"];
+    const unhighlightEvents = ["dragleave", "drop"];
+
+    let featuredImageLocation = "";
+
+    ddEvents.forEach((eventName) => {
+      this.addEventListener(eventName, preventDefaults, false);
+    });
+
+    highlightEvents.forEach((eventName) => {
+      this.addEventListener(eventName, highlight, false);
+    });
+
+    unhighlightEvents.forEach((eventName) => {
+      this.addEventListener(eventName, unhighlight, false);
+    });
+    function preventDefaults(event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    function highlight(event) {
+      imageUploadSection.classList.add("active");
+    }
+
+    function unhighlight(event) {
+      imageUploadSection.classList.remove("active");
+    }
+
+    function handleDrop(event) {
+      const dt = event.dataTransfer;
+      const files = dt.files;
+
+      handleFiles(files);
+    }
+
+    function handleFiles(files) {
+      ([...files]).forEach(this.uploadFeaturedImage);
+    }
+  }
+
+  uploadFeaturedImage(file) {
+    const formData = new FormData();
+    formData.append("file", file);
+    console.log("file: ", file);
+    const url = "/upload";
+    const fetchOptions = {
+      method: "POST",
+      body: formData,
+    };
+
+    fetch(url, fetchOptions)
+      .then((response) => response.json())
+      .then((data) => JSON.parse(data))
+      .then((data) => setFeatureImage(data.location))
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  setFeatureImage(backgroundLocation) {
+    console.log(backgroundLocation);
+    imageUploadSection.style.backgroundImage = `url(${backgroundLocation})`;
+    featuredImageLocation = backgroundLocation;
+    Array.from(imageUploadParagraph.classList).includes("hidden")
+      ? null
+      : imageUploadParagraph.classList.add("hidden");
   }
 }
 
