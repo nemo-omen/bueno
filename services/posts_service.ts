@@ -8,7 +8,7 @@ const dbName = 'bueno';
 async function initDB(db: String) {
   console.log(`Checking for database, ${dbName} at ${dbAddress}`);
 
-  const response = await fetch(`${dbAddress}/_dbs/_all_docs`);
+  const response = await fetch(`http://${dbAddress}/_dbs/_all_docs`);
   const data = await response.json();
   const currentDBs = data.rows;
 
