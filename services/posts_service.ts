@@ -2,7 +2,37 @@ import { v4 } from "https://deno.land/std/uuid/mod.ts";
 import { moment } from "https://deno.land/x/moment/moment.ts";
 import { slugify } from "https://deno.land/x/slugify/mod.ts";
 
-const dummyJS = "```console.log('Hello, world!')```";
+const dbAddress = '192.168.0.11:5984';
+const dbName = 'bueno';
+
+async function initDB(db: String) {
+  console.log(`Checking for database, ${dbName} at ${dbAddress}`);
+
+  const response = await fetch(`${dbAddress}/_dbs/_all_docs`);
+  const data = await response.json();
+  const currentDBs = data.rows;
+
+  const dbVals = currentDBs.map((doc: any) => {
+    return doc.key;
+  });
+
+  if (!dbVals.includes(db)) {
+    console.log(`No db named ${dbName}. Attempting to create.`);
+    const putResponse = await fetch(`${dbAddress}/${db}`, {
+      method: "PUT",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+    });
+    const data = await putResponse.json();
+
+    if (data.ok) {
+      console.log(`DB ${dbName} created. Ready to go.`);
+    }
+  }
+}
+
+initDB(dbName);
 
 const posts: Array<object> = [
   {
