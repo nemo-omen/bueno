@@ -5,7 +5,7 @@ import PostResource from "./resources/post_resource.ts";
 import ResourcesResource from "./resources/resources_resource.ts";
 import AboutResource from "./resources/about_resource.ts";
 import LoginResource from "./resources/login_resource.ts";
-import UploadResource from "./resources/upload_resource.ts";
+import UploadResource from "./resources/image_upload_resource.ts";
 
 const server = new Drash.Http.Server({
   directory: Deno.realPathSync("./"),

@@ -73,7 +73,7 @@ async function uploadFeaturedImage(file) {
   const formData = new FormData();
   formData.append("file", file);
   console.log("file: ", file);
-  const url = "/upload";
+  const url = "/upload_image";
   const fetchOptions = {
     method: "POST",
     body: formData,

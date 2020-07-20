@@ -1,7 +1,7 @@
 import { Drash } from "../deps.ts";
 
 export default class UploadResource extends Drash.Http.Resource {
-  static paths = ["/upload"];
+  static paths = ["/upload_image"];
 
   public GET() {
     this.response.body = JSON.stringify({ message: "Not implemented" });
