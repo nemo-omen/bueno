@@ -14,6 +14,7 @@ export default class PostResource extends Drash.Http.Resource {
     // Parse the stored markdown so we can send html to client
     const unparsed = postResponse.content;
     const parsed = Marked.parse(unparsed);
+    console.log('Parsed: ', parsed);
     const post: any = { ...postResponse, content: parsed };
 
     this.response.body = this.response.render("/templates/post.html", {

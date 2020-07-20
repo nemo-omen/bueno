@@ -2,7 +2,7 @@ import { load } from "https://deno.land/x/tiny_env/mod.ts";
 import { v4 } from "https://deno.land/std/uuid/mod.ts";
 import { moment } from "https://deno.land/x/moment/moment.ts";
 import { slugify } from "https://deno.land/x/slugify/mod.ts";
-import { posts } from "./dummyPosts.ts";
+
 import {
   DataTypes,
   Database,

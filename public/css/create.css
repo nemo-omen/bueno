@@ -103,15 +103,9 @@
     margin: 1rem 0;
 }
 
-.post-create-secondary-control button {
-    border: none;
-    padding: 0.25rem 0.5rem;
-    margin-left: 1rem;
-    font-size: 1rem;
-    color: var(--primaryGray-200);
-    cursor: pointer;
-    transition: all .2s ease-out;
-}
+/* .post-create-secondary-control button {
+
+} */
 
 .post-publish-secondary-button {
     background-color: var(--fireTruck-300);

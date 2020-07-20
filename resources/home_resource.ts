@@ -1,14 +1,14 @@
 import { Drash } from "../deps.ts";
 import { PostsService } from "../services/posts_service.ts";
 
-const ps = new PostsService();
+const ps: PostsService = new PostsService();
 
 export default class HomeResource extends Drash.Http.Resource {
-  static paths = ["/"];
+  static paths: Array<string> = ["/"];
 
   public async GET() {
-    const svcPosts = await ps.allPosts();
-    const posts = [...svcPosts];
+    const svcPosts: Array<Object> = await ps.allPosts();
+    const posts: Array<Object> = [...svcPosts];
 
     this.response.body = this.response.render("/templates/home.html", {
       posts: posts,

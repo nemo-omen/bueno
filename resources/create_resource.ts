@@ -16,9 +16,8 @@ export default class CreateResource extends Drash.Http.Resource {
   }
 
   public async POST() {
-    console.log("create POST requested");
-    const requestPost = this.request.getBodyParam("data");
-    const postTitle = requestPost.title;
+    const requestPost: any = this.request.getBodyParam("data");
+    const postTitle: string = requestPost.title;
     const post: any = {
       ...requestPost,
       _id: v4.generate(),
@@ -30,7 +29,7 @@ export default class CreateResource extends Drash.Http.Resource {
         lower: true,
       }),
     };
-    console.log(post);
+
     const response = await ps.createPost(post);
     if (response.ok) {
       return this.response.redirect(301, `/${post.slug}`);

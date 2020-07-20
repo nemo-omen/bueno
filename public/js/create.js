@@ -73,7 +73,7 @@ async function uploadFeaturedImage(file) {
   const formData = new FormData();
   formData.append("file", file);
   console.log("file: ", file);
-  const url = "/upload_image";
+  const url = "/upload/image";
   const fetchOptions = {
     method: "POST",
     body: formData,
@@ -106,17 +106,28 @@ toolbar.insertAdjacentHTML("afterbegin", customButtonsTemplate);
 
 const publishButton = document.querySelector(".post-publish-button");
 const draftButton = document.querySelector(".post-draft-button");
-
+const secondaryPublishButton = document.querySelector(
+  ".post-publish-secondary-button",
+);
+const secondaryDraftButton = document.querySelector(
+  ".post-draft-secondary-button",
+);
 markdownInput.on("markyblur", (event) => {
   handleSave();
 });
+const draftButtons = [draftButton, secondaryDraftButton];
+const publishButtons = [publishButton, secondaryPublishButton];
 
-draftButton.addEventListener("click", (event) => {
-  handleSave();
+draftButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    handleSave();
+  });
 });
 
-publishButton.addEventListener("click", (event) => {
-  handlePublish();
+publishButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    handlePublish();
+  });
 });
 
 async function handleSave() {

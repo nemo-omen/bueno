@@ -1,7 +1,7 @@
 import { Drash } from "../deps.ts";
 
 export default class UploadResource extends Drash.Http.Resource {
-  static paths = ["/upload_image"];
+  static paths = ["/upload/image"];
 
   public GET() {
     this.response.body = JSON.stringify({ message: "Not implemented" });
@@ -11,7 +11,7 @@ export default class UploadResource extends Drash.Http.Resource {
 
   public async POST() {
     console.log("/upload Post requested");
-    const file = this.request.getBodyFile("file");
+    const file: any = this.request.getBodyFile("file");
 
     if (!file) {
       throw new Drash.Exceptions.HttpException(
@@ -20,7 +20,7 @@ export default class UploadResource extends Drash.Http.Resource {
       );
     }
 
-    const outputFile = `./public/assets/uploads/${
+    const outputFile: any = `./public/assets/uploads/${
       file.filename.replace(/\s/g, "_").replace("-", "_")
     }`;
 
