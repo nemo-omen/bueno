@@ -7,55 +7,6 @@ import {
 class BuenoDropzone extends LitElement {
   connectedCallback() {
     super.connectedCallback();
-    const events = ["dragenter", "dragleave", "dragover", "drop"];
-  }
-  static get styles() {
-    return css`
-    :root {
-      box-sizing: border-box;
-      --primary-gray: #282828;
-      --light-gray: #919191;
-    }
-    .dropzone-container {
-      box-sizing: border-box;
-      background-color: #f6f6f6;
-      width: 100%;
-      height: 7rem;
-      margin: 0;
-      position: relative;
-      border: 1px solid #e4e4e4;
-      color: var(--lightGray);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0.5rem;
-      font-size: 0.75rem;
-      cursor: pointer;
-      transition: all .2s ease-out;
-    }
-    .active {
-      color: var(--primary-gray);
-	    background-color: #f9f9f9;
-	    border: 1px solid rgb(160, 198, 229);
-    }
-    input {
-      display: none;
-    }
-    `;
-  }
-  render() {
-    return html`
-    <section id="dropzone-container">
-      <p>Drop image here or click to select</p>
-      <input type="file" id="image-input" @change="${
-      this.uploadFeaturedImage(featuredImageInput.files[0])
-    }">
-    </section>
-    `;
-  }
-  connectedCallback() {
-    super.connectedCallback();
     const imageUploadSection = this.shadowRoot.getElementById(
       "dropzone-container",
     );
@@ -98,6 +49,53 @@ class BuenoDropzone extends LitElement {
     function handleFiles(files) {
       ([...files]).forEach(this.uploadFeaturedImage);
     }
+  }
+
+  render() {
+    return html`
+    <section id="dropzone-container">
+      <p>Drop image here or click to select</p>
+      <input type="file" id="image-input" @change="${
+      this.uploadFeaturedImage(featuredImageInput.files[0])
+    }">
+    </section>
+    `;
+  }
+
+  static get styles() {
+    return css`
+    :root {
+      box-sizing: border-box;
+      --primary-gray: #282828;
+      --light-gray: #919191;
+    }
+    .dropzone-container {
+      box-sizing: border-box;
+      background-color: #f6f6f6;
+      width: 100%;
+      height: 7rem;
+      margin: 0;
+      position: relative;
+      border: 1px solid #e4e4e4;
+      color: var(--lightGray);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all .2s ease-out;
+    }
+    .active {
+      color: var(--primary-gray);
+	    background-color: #f9f9f9;
+	    border: 1px solid rgb(160, 198, 229);
+    }
+    input {
+      display: none;
+    }
+    `;
   }
 
   uploadFeaturedImage(file) {
