@@ -3,8 +3,10 @@ import { PostsService } from "../services/posts_service.ts";
 import { moment } from "https://deno.land/x/moment/moment.ts";
 import { slugify } from "https://deno.land/x/slugify/mod.ts";
 import { v4 } from "https://deno.land/std/uuid/mod.ts";
+import { PgService } from "../services/postgres_service.ts";
 
-const ps = new PostsService();
+const pg: PgService = new PgService();
+// const ps = new PostsService();
 
 export default class CreateResource extends Drash.Http.Resource {
   static paths = ["/create"];
@@ -20,19 +22,24 @@ export default class CreateResource extends Drash.Http.Resource {
     const postTitle: string = requestPost.title;
     const post: any = {
       ...requestPost,
-      _id: v4.generate(),
-      createdAt: moment().format("MMMM Do YYYY, h:mm:ss a"),
-      featuredImage: "https://picsum.photos/800/400",
+      id: v4.generate(),
+      created_at: moment().format("MMMM Do YYYY, h:mm:ss a"),
+      featured_image: "https://picsum.photos/800/400",
       slug: slugify(postTitle, {
         replacement: "_",
-        remove: null,
+        remove: "[^A-z][\\\^]?",
         lower: true,
       }),
     };
 
-    const response = await ps.createPost(post);
+    const response = await pg.create(
+      `INSERT INTO posts (id, slug, publish_date_string, title, subtitle, excerpt, content, featured_image)
+      VALUES('${post.id}', '${post.slug}', '${post.created_at}', '${post.title}', '${post.subtitle}', '${post.excerpt}', '${post.content}', '${post.featured_image}')
+      RETURNING slug;`,
+    );
     if (response.ok) {
-      return this.response.redirect(301, `/${post.slug}`);
+      this.response.body = JSON.stringify({ ok: true, slug: response.slug });
+      return this.response;
     } else {
       this.response.body = JSON.stringify(
         { ok: false, message: "Something went wrong." },

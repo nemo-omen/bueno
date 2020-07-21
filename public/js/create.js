@@ -154,17 +154,15 @@ async function handlePublish() {
     excerpt: excerpt,
     content: markdownContent,
   };
-  const response = await fetch("/create", {
+  fetch("/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     redirect: "follow",
     body: JSON.stringify({ data: newPost }),
-  });
-  if (response.ok) {
-    window.location = "/";
-  } else {
-    console.log(response.message);
-  }
+  })
+    .then((response) => response.json())
+    .then((data) => window.location = `/${data.slug}`)
+    .catch((error) => (console.error(error)));
 }

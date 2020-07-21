@@ -12,7 +12,7 @@ class BuenoPostItemSlot extends LitElement {
       title: { type: String },
       subtitle: { type: String },
       excerpt: { type: String },
-      slug: { type: String }
+      slug: { type: String },
     };
   }
 
@@ -22,7 +22,7 @@ class BuenoPostItemSlot extends LitElement {
   font-size: 24px;
   display: flex;
   flex-direction: column;
-  margin: 0 0 2rem 0;
+  margin: 0 0 1rem 0;
   color: #fff;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   color: #282828;
@@ -46,6 +46,14 @@ class BuenoPostItemSlot extends LitElement {
   font-size: 1rem;
   margin: 0;
 }
+.post-list-item-footer {
+  margin-top: 0.5rem;
+  opacity: 0;
+  transition: all .2s ease-out;
+}
+.post-list-item-footer:hover {
+  opacity: 1;
+}
 a {
   text-decoration: none;
 }
@@ -61,8 +69,9 @@ a:hover {
           <slot name="post-title"></slot>
           <slot name="post-date"></slot>
         </header>
+        <slot name="post-excerpt"></slot>
         <footer class="post-list-item-footer">
-          <slot name="post-excerpt"></slot>
+          <slot name="post-control"></slot>
         </footer>
       </section>
     `;
