@@ -42,8 +42,16 @@ export default class PostResource extends Drash.Http.Resource {
     return this.response;
   }
 
-  public DELETE() {
-    this.response.body = JSON.stringify({ message: "Not implemented" });
+  public async DELETE() {
+    const id = this.request.getBodyParam("id");
+    const response = await pg.delete(id);
+    if (response.ok) {
+      console.log("Delete request ok");
+      this.response.body = JSON.stringify({ ok: true, id: id });
+    } else {
+      console.log("There was an error");
+      this.response.body = JSON.stringify({ ok: false });
+    }
     return this.response;
   }
 

@@ -76,8 +76,15 @@ export class PgService {
       return ({ ok: false });
     }
   }
-  // async delete(query) {
-  //   await client.connect();
-  //   const result: QueryResult = await client.query;
-  // }
+  async delete(id) {
+    await client.connect();
+    const result: QueryResult = await client.query(
+      `DELETE FROM posts WHERE id = '${id}';`,
+    );
+    if (result.rowCount > 0) {
+      return { ok: true };
+    } else {
+      return { ok: false };
+    }
+  }
 }

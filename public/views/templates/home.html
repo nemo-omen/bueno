@@ -2,16 +2,20 @@
 
 <section id="post-list-section">
   <% for(let index in posts) { %>
-  <b-post-item-slot subtitle="<% posts[index].subtitle %>" id="<% posts[index].id %>" slug="<% posts[index].slug %>">
+  <b-post-item-slot visible="true" subtitle="<% posts[index].subtitle %>" id="<% posts[index].id %>"
+    slug="<% posts[index].slug %>">
     <h2 slot="post-title"><a href="/<% posts[index].slug %>"><% posts[index].title %></a></h2>
     <p slot="post-date"><% posts[index].publish_date_string %></p>
     <p slot="post-excerpt"><a
         href="/<% posts[index].slug %>"><% posts[index].excerpt ? posts[index].excerpt : posts[index].content.substring(0, 150) %>
         ...</a></p>
     <section class="post-control-section" slot="post-control">
-      <button class="post-edit-button" title="Edit">Edit</button>
-      <button class="post-revert-button" title="Revert to draft">Draft</button>
-      <button class="post-delete-button" title="Delete">Delete</button>
+      <button class="post-edit-button" id="edit-<% posts[index].id %>" title="Edit"
+        data-postid="<% posts[index].id %>">Edit</button>
+      <button class="post-revert-button" id="draft-<% posts[index].id %>" title="Revert to draft"
+        data-postid="<% posts[index].id %>">Draft</button>
+      <button class="post-delete-button" id="delete-<% posts[index].id %>" title="Delete"
+        data-postid="<% posts[index].id %>">Delete</button>
     </section>
   </b-post-item-slot>
   <% } %>
