@@ -82,8 +82,29 @@ export class PgService {
       `DELETE FROM posts WHERE id = '${id}';`,
     );
     if (result.rowCount > 0) {
+      await client.end();
       return { ok: true };
     } else {
+      await client.end();
+      return { ok: false };
+    }
+  }
+  async update(post) {
+    await client.connect();
+    const result: QueryResult = await client.query(
+      `UPDATE posts
+      SET title = '${post.title}',
+      subtitle = '${post.subtitle}',
+      excerpt = '${post.excerpt}',
+      content = '${post.content}',
+      featured_image = '${post.featured_image}'
+      WHERE id = ${post.id};`,
+    );
+    if (result.rowCount > 0) {
+      await client.end();
+      return { ok: true };
+    } else {
+      await client.end();
       return { ok: false };
     }
   }

@@ -13,16 +13,7 @@ class BuenoPostItemSlot extends LitElement {
       subtitle: { type: String },
       excerpt: { type: String },
       slug: { type: String },
-      visible: { type: String },
     };
-  }
-
-  constructor() {
-    super();
-    this.visible = true;
-    setInterval(() => {
-      this.visible = false;
-    }, 1000);
   }
 
   render() {
@@ -40,40 +31,6 @@ class BuenoPostItemSlot extends LitElement {
     `;
   }
 
-  updated(changedProperties) {
-    if (!this.visible) {
-      this.remove;
-    }
-  }
-
-  remove() {
-    // let start = null;
-    const element = this.shadowRoot.querySelector(".post-list-item-section");
-    // const startHeight = parseFloat(
-    //   window.getComputedStyle(element, null).height,
-    // );
-    // const duration = 400;
-
-    // element.style.display = "block";
-    element.classList.add("hidden");
-
-    // function step(timestamp) {
-    //   if (!start) start = timestamp;
-    //   let progress = timestamp - start;
-    //   let height = (element.style.height != "")
-    //     ? parseFloat(element.style.height)
-    //     : startHeight;
-
-    //   element.style.height = --height + "px";
-
-    //   if (progress < duration) {
-    //     window.requestAnimationFrame(step);
-    //   }
-    // }
-
-    // window.requestAnimationFrame(step);
-  }
-
   static get styles() {
     return css`
     .post-list-item-section {
@@ -87,12 +44,6 @@ class BuenoPostItemSlot extends LitElement {
       overflow: hidden;
       transition: all 0.4ms ease-out;
       opacity: 1;
-    }
-    .hidden {
-      margin: 0;
-      padding: 0;
-      transform: scaleX(0);
-      opacity: 0;
     }
     .post-list-item-header {
       background-color: #fff;

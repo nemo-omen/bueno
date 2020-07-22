@@ -17,9 +17,9 @@
     <p class="post-date"><% post.publishDateString %></p>
   </section>
   <section class="post-control-section">
-    <button class="post-edit-button">Edit</button>
-    <button class="post-revert-button">Draft</button>
-    <button class="post-delete-button">Delete</button>
+    <a class="button post-edit-button" href="/edit/<% post.id %>">Edit</a>
+    <button class="post-revert-button" data-postid="<% post.id %>">Draft</button>
+    <button class="post-delete-button" data-postid="<% post.id %>">Delete</button>
   </section>
   <section class="post-body">
     <% post.content %>

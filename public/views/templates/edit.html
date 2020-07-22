@@ -1,0 +1,22 @@
+<% extends("/index.html") %>
+<script src="/public/js/edit.js" type="module"></script>
+
+<section id="edit-section">
+  <h2>Edit Post</h2>
+  <section class="post-create-meta-section">
+    <section class="post-create-meta-input">
+      <input type="text" name="title" id="title" value="<% post.title %>">
+      <input type="text" name="subtitle" id="subtitle" value="<% post.subtitle %>">
+      <textarea id="excerpt" value="<% post.excerpt %>" maxlength="250"></textarea>
+    </section>
+    <section id="image-upload-section" style="background-image: url('<% post.featured_image %>')">
+      <p class="image-upload-paragraph">Drag or click to upload featured image.</p>
+      <input type="file" name="featured-image" id="featured-image" accept="image/*">
+    </section>
+  </section>
+  <section class="markdown-input" data-content="<% post.content %>"></section>
+  <section class="post-create-secondary-control">
+    <button class="post-draft-secondary-button" data-postid="<% post.id %>">Draft</button>
+    <button class="post-publish-secondary-button" data-postid="<% post.id %>">Update</button>
+  </section>
+</section>

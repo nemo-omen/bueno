@@ -19,13 +19,6 @@ deleteButtons.forEach((button) => {
   });
 });
 
-editButtons.forEach((button) => {
-  button.addEventListener("click", (event) => {
-    const editId = event.target.dataset.postid;
-    editPost(editId);
-  });
-});
-
 draftButtons.forEach((button) => {
   button.addEventListener("click", (event) => {
     const draftId = event.target.dataset.postid;
@@ -50,22 +43,22 @@ async function deletePost(id) {
   }
 }
 
-async function editPost(id) {
-  console.log("Edit!");
-}
-
 async function draftPost(id) {
   console.log("Draft!");
 }
 
 function removeDomPost(id) {
   const domPost = document.getElementById(id);
-  domPost.setAttribute("visible", false);
-  domPost.classList.add = "hidden";
+  domPost.classList.add("hidden");
+  removeElement(domPost);
+}
+
+function removeElement(element) {
   setTimeout(() => {
-    domPost.remove();
+    element.remove();
   }, 400);
 }
+
 function domMsg(msgObj) {
   console.log(msgObj);
 }

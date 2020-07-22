@@ -6,6 +6,7 @@ import ResourcesResource from "./resources/resources_resource.ts";
 import AboutResource from "./resources/about_resource.ts";
 import LoginResource from "./resources/login_resource.ts";
 import UploadResource from "./resources/image_upload_resource.ts";
+import EditResource from "./resources/edit_resource.ts";
 
 const server = new Drash.Http.Server({
   directory: Deno.realPathSync("./"),
@@ -22,6 +23,7 @@ const server = new Drash.Http.Server({
     LoginResource,
     PostResource,
     UploadResource,
+    EditResource,
   ],
   static_paths: ["/public"],
   template_engine: true,
