@@ -4,7 +4,7 @@ import { Marked } from "https://deno.land/x/markdown/mod.ts";
 import { PgService } from "../services/postgres_service.ts";
 
 const pg: PgService = new PgService();
-const ps: PostsService = new PostsService();
+
 export default class PostResource extends Drash.Http.Resource {
   static paths = ["/:slug"];
 
