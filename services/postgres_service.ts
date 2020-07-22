@@ -89,17 +89,15 @@ export class PgService {
       return { ok: false };
     }
   }
-  async update(post) {
+  async update(data) {
+    const post = { ...data.post };
     await client.connect();
     const result: QueryResult = await client.query(
       `UPDATE posts
-      SET title = '${post.title}',
-      subtitle = '${post.subtitle}',
-      excerpt = '${post.excerpt}',
-      content = '${post.content}',
-      featured_image = '${post.featured_image}'
+      SET title = '${post.title}', subtitle = '${post.subtitle}', excerpt = '${post.excerpt}', content = '${post.content}', featured_image = '${post.featured_image}'
       WHERE id = ${post.id};`,
     );
+    console.log(result);
     if (result.rowCount > 0) {
       await client.end();
       return { ok: true };

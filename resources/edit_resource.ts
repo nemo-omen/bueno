@@ -14,10 +14,8 @@ export default class EditResource extends Drash.Http.Resource {
   public async GET() {
     console.log("/edit Get requested");
     const id = this.request.getPathParam("id");
-    console.log(id);
     const response = await pg.getOne("posts", "id", id);
     const post = { ...response[0] };
-    console.log(post);
     this.response.body = this.response.render(
       "/templates/edit.html",
       { post: post },
@@ -39,7 +37,7 @@ export default class EditResource extends Drash.Http.Resource {
 
   public async PUT() {
     console.log("/edit PUT requested");
-    const updatedPost = this.request.getBodyParam("post");
+    const updatedPost = this.request.getBodyParam("data");
     const response = await pg.update(
       {
         post: {
@@ -48,9 +46,14 @@ export default class EditResource extends Drash.Http.Resource {
         },
       },
     );
+    if (!response) {
+      console.log("No response...");
+    }
     if (response.ok) {
+      console.log("Response ok: ", response);
       this.response.body = JSON.stringify({ ok: true });
     } else {
+      console.log("Response not ok", response);
       this.response.body = JSON.stringify({ ok: false });
     }
     return this.response;

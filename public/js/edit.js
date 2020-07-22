@@ -124,22 +124,23 @@ const publishButtons = [publishButton, secondaryPublishButton];
 
 draftButtons.forEach((button) => {
   button.addEventListener("click", (event) => {
-    handleSave();
+    handleSave(event.target.dataset.postid);
   });
 });
 
 publishButtons.forEach((button) => {
   button.addEventListener("click", (event) => {
-    handleUpdate();
+    handleUpdate(event.target.dataset.postid);
   });
 });
 
-async function handleSave() {
+async function handleSave(id) {
   const title = titleInput.value;
   const subtitle = subtitleInput.value;
   const markdownContent = editor.value;
   const excerpt = excerptInput.value;
   const newPost = {
+    id: id,
     title: title,
     subtitle: subtitle,
     content: markdownContent,
@@ -147,17 +148,18 @@ async function handleSave() {
   };
 }
 
-async function handleUpdate() {
+async function handleUpdate(id) {
   const title = titleInput.value;
   const subtitle = subtitleInput.value;
   const excerpt = excerptInput.value;
   const markdownContent = editor.value;
   const newPost = {
+    id: id,
     title: title,
     subtitle: subtitle,
     excerpt: excerpt,
     content: markdownContent,
-    featuredImage: featuredImageLocation,
+    featured_image: featuredImageLocation,
   };
   fetch("/edit/:id", {
     method: "PUT",
