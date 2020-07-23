@@ -148,11 +148,15 @@ async function handleSave(id) {
   };
 }
 
+const updateMessageSpan = document.querySelector(".update-message");
+const updateDateSpan = document.querySelector(".update-date");
+
 async function handleUpdate(id) {
   const title = titleInput.value;
   const subtitle = subtitleInput.value;
   const excerpt = excerptInput.value;
   const markdownContent = editor.value;
+
   const newPost = {
     id: id,
     title: title,
@@ -161,46 +165,65 @@ async function handleUpdate(id) {
     content: markdownContent,
     featured_image: featuredImageLocation,
   };
-  fetch("/edit/:id", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ data: newPost }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      updateMessage(data);
-      console.log(data);
-    })
-    .catch((error) => (console.error(error)));
-  async function updateMessage(data) {
-    const updated_at = data.updated_at;
-    const updateMessageSpan = document.querySelector(".update-message");
-    const updateDateSpan = document.querySelector(".update-date");
-    const failureSpan = document.querySelector(".failure-message");
-    const ok = data.ok;
-    if (failureSpan.classList.contains("flash")) {
-      failureSpan.classList.remove("flash");
+
+  try {
+    setStatus("Loading", { data: "Data Loading..." });
+    const response = await fetch("/edit/:id", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data: newPost }),
+    });
+
+    const data = await response.json();
+    if (data.ok) {
+      setStatus("Post saved", { ok: true });
+      setUpdatedDate(data.updated_at);
     }
-    // updateMessageSpan.innerText = "Success";
-    updateDateSpan.innerText = "Last updated at " + updated_at;
-    updateMessageSpan.classList.add("flash");
-    await setTimeout(() => {
-      updateMessageSpan.classList.remove("flash");
-      // const ok = false;
-    }, 3000);
-    if (ok === true) {
+  } catch (error) {
+    setStatus("There was an error. Try again.", { ok: false });
+    console.error(error);
+  }
+
+  function setStatus(message, status) {
+    updateMessageSpan.innerText = message;
+    flashMessage(message, status);
+  }
+
+  function setUpdatedDate(dateString) {
+    updateDateSpan.innerText = "Last updated at " + dateString;
+  }
+
+  function flashMessage(message, status) {
+    if (status.ok) {
       updateDateSpan.classList.add("flash");
-      setTimeout(() => {
-        updateDateSpan.classList.remove("flash");
-      }, 5000);
+      updateMessageSpan.classList.add("flash");
+      updateDateSpan.classList.contains("flash-error")
+        ? updateDateSpan.classList.remove("flash-error")
+        : null;
+      updateMessageSpan.classList.contains("flash-error")
+        ? updateMessageSpan.classList.remove("flash-error")
+        : null;
+      endFlash("flash");
     } else {
-      failureSpan.classList.add("flash-error");
+      console.log("Failure: ", status);
       updateDateSpan.classList.add("flash-error");
-      setTimeout(() => {
-        updateDateSpan.classList.remove("flash-error");
-      }, 5000);
+      updateMessageSpan.classList.add("flash-error");
+      updateDateSpan.classList.contains("flash")
+        ? updateDateSpan.classList.remove("flash")
+        : null;
+      updateMessageSpan.classList.contains("flash")
+        ? updateMessageSpan.classList.remove("flash")
+        : null;
+      endFlash("flash-error");
     }
+  }
+
+  function endFlash(className) {
+    setTimeout(() => {
+      updateDateSpan.classList.remove(className);
+      updateMessageSpan.classList.remove(className);
+    }, 5000);
   }
 }
