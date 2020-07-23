@@ -15,7 +15,10 @@ export default class EditResource extends Drash.Http.Resource {
     console.log("/edit Get requested");
     const id = this.request.getPathParam("id");
     const response = await pg.getOne("posts", "id", id);
-    const post = { ...response[0] };
+    const post = {
+      ...response[0],
+      updated_at: moment(response[0].updated_at).format("LLL"),
+    };
     console.log("/edit post: ", post);
     this.response.body = this.response.render(
       "/templates/edit.html",
@@ -43,6 +46,7 @@ export default class EditResource extends Drash.Http.Resource {
       {
         post: {
           ...updatedPost,
+          updated_at: moment.utc().toDate().toUTCString(),
           featured_image: "https://picsum.photos/800/400",
         },
       },
@@ -51,8 +55,11 @@ export default class EditResource extends Drash.Http.Resource {
       console.log("No response...");
     }
     if (response.ok) {
-      console.log("Response ok: ", response);
-      this.response.body = JSON.stringify({ ok: true });
+      console.log("Response ok: ", response.updated_at);
+      const updated_at = response.updated_at;
+      this.response.body = JSON.stringify(
+        { ok: true, updated_at: moment(updated_at).format("LLL") },
+      );
     } else {
       console.log("Response not ok", response);
       this.response.body = JSON.stringify({ ok: false });

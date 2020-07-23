@@ -166,10 +166,41 @@ async function handleUpdate(id) {
     headers: {
       "Content-Type": "application/json",
     },
-    redirect: "follow",
     body: JSON.stringify({ data: newPost }),
   })
     .then((response) => response.json())
-    .then((data) => console.log(data))
+    .then((data) => {
+      updateMessage(data);
+      console.log(data);
+    })
     .catch((error) => (console.error(error)));
+  async function updateMessage(data) {
+    const updated_at = data.updated_at;
+    const updateMessageSpan = document.querySelector(".update-message");
+    const updateDateSpan = document.querySelector(".update-date");
+    const failureSpan = document.querySelector(".failure-message");
+    const ok = data.ok;
+    if (failureSpan.classList.contains("flash")) {
+      failureSpan.classList.remove("flash");
+    }
+    // updateMessageSpan.innerText = "Success";
+    updateDateSpan.innerText = "Last updated at " + updated_at;
+    updateMessageSpan.classList.add("flash");
+    await setTimeout(() => {
+      updateMessageSpan.classList.remove("flash");
+      // const ok = false;
+    }, 3000);
+    if (ok === true) {
+      updateDateSpan.classList.add("flash");
+      setTimeout(() => {
+        updateDateSpan.classList.remove("flash");
+      }, 5000);
+    } else {
+      failureSpan.classList.add("flash-error");
+      updateDateSpan.classList.add("flash-error");
+      setTimeout(() => {
+        updateDateSpan.classList.remove("flash-error");
+      }, 5000);
+    }
+  }
 }

@@ -69,6 +69,40 @@
 .hidden {
     display: none;
 }
+
+#message-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    min-height: 1rem;
+    max-height: 1rem;
+    font-size: 0.75rem;
+}
+.update-message {
+    color: var(--deepBlue-400);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+.failure-message {
+    color: var(--fireTruck);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+.update-date {
+    color: var(--primaryGray-700);
+    font-style: italic;
+    transition: all 0.3s ease-in-out;
+}
+.flash {
+    opacity: 1;
+    color: var(--deepBlue-400);
+}
+.flash-error {
+    color: var(--fireTruck);
+    opacity: 1;
+}
 .marky-mark {
     padding: 0;
     margin: 0;

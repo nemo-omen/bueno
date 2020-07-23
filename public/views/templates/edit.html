@@ -14,6 +14,11 @@
       <input type="file" name="featured-image" id="featured-image" accept="image/*">
     </section>
   </section>
+  <section id="message-section">
+    <span class="update-message">Updating...</span>
+    <span class="failure-message">Update failed. Try again?</span>
+    <span class="update-date">Last updated at <% post.updated_at %></span>
+  </section>
   <section class="markdown-input" data-content="<% post.content %>"></section>
   <section class="post-create-secondary-control">
     <button class="post-draft-secondary-button" data-postid="<% post.id %>">Draft</button>

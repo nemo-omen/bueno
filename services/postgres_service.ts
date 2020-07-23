@@ -121,6 +121,7 @@ export class PgService {
 
   async update(data) {
     const post = { ...data.post };
+    console.log(post);
     await client.connect();
     try {
       const result: QueryResult = await client.query(
@@ -129,20 +130,22 @@ export class PgService {
         subtitle = $2,
         excerpt = $3,
         content = $4,
-        featured_image = $5
-        WHERE id = $6
+        featured_image = $5,
+        updated_at = $6
+        WHERE id = $7
         RETURNING updated_at;`,
         post.title,
         post.subtitle,
         post.excerpt,
         post.content,
         post.featured_image,
+        post.updated_at,
         post.id,
       );
       console.log(result);
       if (result.rowCount > 0) {
         await client.end();
-        return { ok: true };
+        return { ok: true, updated_at: result.rows[0][0] };
       } else {
         await client.end();
         return { ok: false };
