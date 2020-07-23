@@ -1,6 +1,5 @@
 import { Drash } from "../deps.ts";
-import { PostsService } from "../services/posts_service.ts";
-import { Marked } from "https://deno.land/x/markdown/mod.ts";
+import { Marked } from "../deps.ts";
 import { PgService } from "../services/postgres_service.ts";
 
 const pg: PgService = new PgService();

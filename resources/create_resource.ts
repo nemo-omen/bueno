@@ -1,8 +1,7 @@
 import { Drash } from "../deps.ts";
-import { PostsService } from "../services/posts_service.ts";
-import { moment } from "https://deno.land/x/moment/moment.ts";
-import { slugify } from "https://deno.land/x/slugify/mod.ts";
-import { v4 } from "https://deno.land/std/uuid/mod.ts";
+import { moment } from "../deps.ts";
+import { slugify } from "../deps.ts";
+import { v4 } from "../deps.ts";
 import { PgService } from "../services/postgres_service.ts";
 
 const pg: PgService = new PgService();

@@ -1,9 +1,6 @@
-import { load } from "https://deno.land/x/tiny_env/mod.ts";
-import { v4 } from "https://deno.land/std/uuid/mod.ts";
-import { moment } from "https://deno.land/x/moment/moment.ts";
-import { slugify } from "https://deno.land/x/slugify/mod.ts";
-import { Client } from "https://deno.land/x/postgres@v0.4.2/mod.ts";
-import { QueryResult } from "https://deno.land/x/postgres@v0.4.2/query.ts";
+import { load } from "../deps.ts";
+import { Client } from "../deps.ts";
+import { QueryResult } from "../deps.ts";
 
 load();
 

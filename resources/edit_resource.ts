@@ -1,8 +1,5 @@
 import { Drash } from "../deps.ts";
-import { PostsService } from "../services/posts_service.ts";
-import { moment } from "https://deno.land/x/moment/moment.ts";
-import { slugify } from "https://deno.land/x/slugify/mod.ts";
-import { v4 } from "https://deno.land/std/uuid/mod.ts";
+import { moment } from "../deps.ts";
 import { PgService } from "../services/postgres_service.ts";
 
 const pg: PgService = new PgService();
@@ -41,7 +38,7 @@ export default class EditResource extends Drash.Http.Resource {
 
   public async PUT() {
     console.log("/edit PUT requested");
-    const updatedPost = this.request.getBodyParam("data");
+    const updatedPost: Object = this.request.getBodyParam("data");
     const response = await pg.update(
       {
         post: {
