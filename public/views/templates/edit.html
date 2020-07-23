@@ -7,7 +7,7 @@
     <section class="post-create-meta-input">
       <input type="text" name="title" id="title" value="<% post.title %>">
       <input type="text" name="subtitle" id="subtitle" value="<% post.subtitle %>">
-      <textarea id="excerpt" value="<% post.excerpt %>" maxlength="250"></textarea>
+      <textarea id="excerpt" maxlength="250"><% post.excerpt %></textarea>
     </section>
     <section id="image-upload-section" style="background-image: url('<% post.featured_image %>')">
       <p class="image-upload-paragraph">Drag or click to upload featured image.</p>

@@ -74,6 +74,24 @@ html, body {
     font-size: 24px;
     color: var(--darkGray);
 }
+
+
+ul {
+  margin: 1rem;
+}
+
+li {
+  margin: 0.5rem 0;
+}
+
+ul li ul {
+  margin: 0 0 0 1rem;
+}
+
+ul li ul li {
+  margin: 0.25rem 0;
+}
+
 main {
     display: grid;
     margin: 0;
@@ -147,6 +165,12 @@ button, .button {
     cursor: pointer;
     transition: all .2s ease-out;
     color: var(--primaryGray-200);
+}
+.button {
+  text-decoration: none;
+}
+.button:hover {
+  text-decoration: none;
 }
 b-post-item-slot {
     transition-property: all;

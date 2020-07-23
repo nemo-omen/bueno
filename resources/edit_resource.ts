@@ -16,6 +16,7 @@ export default class EditResource extends Drash.Http.Resource {
     const id = this.request.getPathParam("id");
     const response = await pg.getOne("posts", "id", id);
     const post = { ...response[0] };
+    console.log("/edit post: ", post);
     this.response.body = this.response.render(
       "/templates/edit.html",
       { post: post },

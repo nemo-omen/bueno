@@ -32,11 +32,7 @@ export default class CreateResource extends Drash.Http.Resource {
       }),
     };
 
-    const response = await pg.create(
-      `INSERT INTO posts (id, slug, publish_date_string, title, subtitle, excerpt, content, featured_image)
-      VALUES('${post.id}', '${post.slug}', '${post.created_at}', '${post.title}', '${post.subtitle}', '${post.excerpt}', '${post.content}', '${post.featured_image}')
-      RETURNING slug;`,
-    );
+    const response = await pg.create(post);
     if (response.ok) {
       this.response.body = JSON.stringify({ ok: true, slug: response.slug });
       return this.response;
