@@ -1,6 +1,6 @@
 import markymark from "https://cdn.skypack.dev/marky-marked";
 import { featuredImageLocation } from "./image_upload.js";
-import "./components/b-dropzone.js";
+// import "./components/b-dropzone.js";
 
 const titleInput = document.getElementById("title");
 const subtitleInput = document.getElementById("subtitle");
@@ -32,6 +32,9 @@ toolbar.insertAdjacentHTML("afterbegin", customButtonsTemplate);
 
 const publishButton = document.querySelector(".post-publish-button");
 const draftButton = document.querySelector(".post-draft-button");
+[publishButton, draftButton].forEach((element) =>
+  element.dataset.postid = postId
+);
 markdownInput.on("markyblur", (event) => {
   handleSave();
 });

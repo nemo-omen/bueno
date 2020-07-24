@@ -2,7 +2,7 @@ import {
   LitElement,
   html,
   css,
-} from "../../web_modules/lit-element.js";
+} from "https://cdn.skypack.dev/lit-element";
 
 class BuenoHeader extends LitElement {
   static get styles() {

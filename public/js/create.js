@@ -21,6 +21,11 @@ toolbar.insertAdjacentHTML("afterbegin", customButtonsTemplate);
 
 const publishButton = document.querySelector(".post-publish-button");
 const draftButton = document.querySelector(".post-draft-button");
+
+[publishButton, draftButton].forEach((element) =>
+  element.dataset.postid = postId
+);
+
 const secondaryPublishButton = document.querySelector(
   ".post-publish-secondary-button",
 );
