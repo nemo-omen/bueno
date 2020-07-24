@@ -1,6 +1,6 @@
 <% extends("/index.html") %>
 <script src="/public/js/create.js" type="module"></script>
-
+<script src="/public/js/image_upload.js" type="module"></script>
 <section id="edit-section">
   <h2>Create Post</h2>
   <section class="post-create-meta-section">
@@ -13,6 +13,11 @@
       <p class="image-upload-paragraph">Drag or click to upload featured image.</p>
       <input type="file" name="featured-image" id="featured-image" accept="image/*">
     </section>
+  </section>
+  <section id="message-section">
+    <span class="update-message">Updating...</span>
+    <span class="published-post-link"></span>
+    <span class="update-date"></span>
   </section>
   <section class="markdown-input"></section>
   <section class="post-create-secondary-control">

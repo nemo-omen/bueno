@@ -1,10 +1,6 @@
 import markymark from "https://cdn.pika.dev/marky-marked@^5.0.3";
+import { featuredImageLocation } from "./image_upload.js";
 import "./components/b-dropzone.js";
-
-const imageUploadSection = document.getElementById("image-upload-section");
-const featuredImageInput = document.getElementById("featured-image");
-const imageUploadButton = document.getElementById("image-upload-button");
-const imageUploadParagraph = document.querySelector(".image-upload-paragraph");
 
 const titleInput = document.getElementById("title");
 const subtitleInput = document.getElementById("subtitle");
@@ -12,93 +8,13 @@ const excerptInput = document.getElementById("excerpt");
 const markdownElement = document.querySelector(".markdown-input");
 const markdownInput = markymark(markdownElement);
 const editor = document.querySelector("textarea.marky-editor");
+const updateMessageSpan = document.querySelector(".update-message");
+const updateDateSpan = document.querySelector(".update-date");
 
 editor.value = markdownElement.dataset.content;
 
 const toolbar = document.querySelector(".marky-toolbar");
 
-// trigger file input on imageUploadButton click
-imageUploadSection.addEventListener("click", (event) => {
-  featuredImageInput.click();
-});
-
-// drag and drop events
-const ddEvents = ["dragenter", "dragleave", "dragover", "drop"];
-const highlightEvents = ["dragenter", "dragover"];
-const unhighlightEvents = ["dragleave", "drop"];
-
-let featuredImageLocation = "";
-
-ddEvents.forEach((eventName) => {
-  imageUploadSection.addEventListener(eventName, preventDefaults, false);
-});
-
-highlightEvents.forEach((eventName) => {
-  imageUploadSection.addEventListener(eventName, highlight, false);
-});
-
-unhighlightEvents.forEach((eventName) => {
-  imageUploadSection.addEventListener(eventName, unhighlight, false);
-});
-
-imageUploadSection.addEventListener("drop", handleDrop, false);
-
-function preventDefaults(event) {
-  event.preventDefault();
-  event.stopPropagation();
-}
-
-function highlight(event) {
-  imageUploadSection.classList.add("highlight");
-}
-
-function unhighlight(event) {
-  imageUploadSection.classList.remove("highlight");
-}
-
-function handleDrop(event) {
-  const dt = event.dataTransfer;
-  const files = dt.files;
-
-  handleFiles(files);
-}
-
-function handleFiles(files) {
-  ([...files]).forEach(uploadFeaturedImage);
-}
-
-featuredImageInput.addEventListener("change", (event) => {
-  uploadFeaturedImage(featuredImageInput.files[0]);
-});
-
-async function uploadFeaturedImage(file) {
-  const formData = new FormData();
-  formData.append("file", file);
-  console.log("file: ", file);
-  const url = "/upload/image";
-  const fetchOptions = {
-    method: "POST",
-    body: formData,
-  };
-
-  const response = await fetch(url, fetchOptions);
-  const data = await response.json();
-  if (!data.ok) {
-    console.log(data);
-  } else {
-    console.log(data);
-    setFeatureImage(data.location);
-  }
-}
-
-function setFeatureImage(backgroundLocation) {
-  console.log(backgroundLocation);
-  imageUploadSection.style.backgroundImage = `url(${backgroundLocation})`;
-  featuredImageLocation = backgroundLocation;
-  Array.from(imageUploadParagraph.classList).includes("hidden")
-    ? null
-    : imageUploadParagraph.classList.add("hidden");
-}
 const secondaryPublishButton = document.querySelector(
   ".post-publish-secondary-button",
 );
@@ -148,9 +64,6 @@ async function handleSave(id) {
   };
 }
 
-const updateMessageSpan = document.querySelector(".update-message");
-const updateDateSpan = document.querySelector(".update-date");
-
 async function handleUpdate(id) {
   const title = titleInput.value;
   const subtitle = subtitleInput.value;
@@ -167,7 +80,7 @@ async function handleUpdate(id) {
   };
 
   try {
-    setStatus("Loading", { data: "Data Loading..." });
+    // setStatus("Loading", { data: "Data Loading..." });
     const response = await fetch("/edit/:id", {
       method: "PUT",
       headers: {
@@ -176,9 +89,11 @@ async function handleUpdate(id) {
       body: JSON.stringify({ data: newPost }),
     });
 
-    const data = await response.json();
+    const responseJson = await response.json();
+    const data = JSON.parse(responseJson);
+    console.log("Data: ", data);
     if (data.ok) {
-      setStatus("Post saved", { ok: true });
+      setStatus("Post saved!", { ok: true });
       setUpdatedDate(data.updated_at);
     }
   } catch (error) {
@@ -227,3 +142,5 @@ async function handleUpdate(id) {
     }, 5000);
   }
 }
+
+console.log(featuredImageLocation);

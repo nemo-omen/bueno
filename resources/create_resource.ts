@@ -23,7 +23,7 @@ export default class CreateResource extends Drash.Http.Resource {
       ...requestPost,
       id: v4.generate(),
       created_at: moment().format("MMMM Do YYYY, h:mm:ss a"),
-      featured_image: "https://picsum.photos/800/400",
+      // featured_image: "https://picsum.photos/800/400",
       slug: slugify(postTitle, {
         replacement: "_",
         remove: "[^A-z][\\\^]?",

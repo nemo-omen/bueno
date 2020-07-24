@@ -44,7 +44,7 @@ export default class EditResource extends Drash.Http.Resource {
         post: {
           ...updatedPost,
           updated_at: moment.utc().toDate().toUTCString(),
-          featured_image: "https://picsum.photos/800/400",
+          // featured_image: "https://picsum.photos/800/400",
         },
       },
     );
@@ -52,13 +52,11 @@ export default class EditResource extends Drash.Http.Resource {
       console.log("No response...");
     }
     if (response.ok) {
-      console.log("Response ok: ", response.updated_at);
       const updated_at = response.updated_at;
       this.response.body = JSON.stringify(
         { ok: true, updated_at: moment(updated_at).format("LLL") },
       );
     } else {
-      console.log("Response not ok", response);
       this.response.body = JSON.stringify({ ok: false });
     }
     return this.response;

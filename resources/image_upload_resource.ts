@@ -12,6 +12,7 @@ export default class UploadResource extends Drash.Http.Resource {
   public async POST() {
     console.log("/upload Post requested");
     const file: any = this.request.getBodyFile("file");
+    console.log("Image upload file:", file);
 
     if (!file) {
       throw new Drash.Exceptions.HttpException(

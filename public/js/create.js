@@ -1,10 +1,6 @@
 import markymark from "https://cdn.pika.dev/marky-marked@^5.0.3";
+import { featuredImageLocation } from "./image_upload.js";
 import "./components/b-dropzone.js";
-
-const imageUploadSection = document.getElementById("image-upload-section");
-const featuredImageInput = document.getElementById("featured-image");
-const imageUploadButton = document.getElementById("image-upload-button");
-const imageUploadParagraph = document.querySelector(".image-upload-paragraph");
 
 const titleInput = document.getElementById("title");
 const subtitleInput = document.getElementById("subtitle");
@@ -12,91 +8,10 @@ const excerptInput = document.getElementById("excerpt");
 const markdownElement = document.querySelector(".markdown-input");
 const markdownInput = markymark(markdownElement);
 const editor = document.querySelector("textarea.marky-editor");
+const updateMessageSpan = document.querySelector(".update-message");
+const updateDateSpan = document.querySelector(".update-date");
 
 const toolbar = document.querySelector(".marky-toolbar");
-
-// trigger file input on imageUploadButton click
-imageUploadSection.addEventListener("click", (event) => {
-  featuredImageInput.click();
-});
-
-// drag and drop events
-const ddEvents = ["dragenter", "dragleave", "dragover", "drop"];
-const highlightEvents = ["dragenter", "dragover"];
-const unhighlightEvents = ["dragleave", "drop"];
-
-let featuredImageLocation = "";
-
-ddEvents.forEach((eventName) => {
-  imageUploadSection.addEventListener(eventName, preventDefaults, false);
-});
-
-highlightEvents.forEach((eventName) => {
-  imageUploadSection.addEventListener(eventName, highlight, false);
-});
-
-unhighlightEvents.forEach((eventName) => {
-  imageUploadSection.addEventListener(eventName, unhighlight, false);
-});
-
-imageUploadSection.addEventListener("drop", handleDrop, false);
-
-function preventDefaults(event) {
-  event.preventDefault();
-  event.stopPropagation();
-}
-
-function highlight(event) {
-  imageUploadSection.classList.add("highlight");
-}
-
-function unhighlight(event) {
-  imageUploadSection.classList.remove("highlight");
-}
-
-function handleDrop(event) {
-  const dt = event.dataTransfer;
-  const files = dt.files;
-
-  handleFiles(files);
-}
-
-function handleFiles(files) {
-  ([...files]).forEach(uploadFeaturedImage);
-}
-
-featuredImageInput.addEventListener("change", (event) => {
-  uploadFeaturedImage(featuredImageInput.files[0]);
-});
-
-async function uploadFeaturedImage(file) {
-  const formData = new FormData();
-  formData.append("file", file);
-  console.log("file: ", file);
-  const url = "/upload/image";
-  const fetchOptions = {
-    method: "POST",
-    body: formData,
-  };
-
-  const response = await fetch(url, fetchOptions);
-  const data = await response.json();
-  if (!data.ok) {
-    console.log(data);
-  } else {
-    console.log(data);
-    setFeatureImage(data.location);
-  }
-}
-
-function setFeatureImage(backgroundLocation) {
-  console.log(backgroundLocation);
-  imageUploadSection.style.backgroundImage = `url(${backgroundLocation})`;
-  featuredImageLocation = backgroundLocation;
-  Array.from(imageUploadParagraph.classList).includes("hidden")
-    ? null
-    : imageUploadParagraph.classList.add("hidden");
-}
 
 const customButtonsTemplate = `
   <button class="post-publish-button" title="Publish"><i class="fas fa-upload"></i></button>
@@ -153,16 +68,68 @@ async function handlePublish() {
     subtitle: subtitle,
     excerpt: excerpt,
     content: markdownContent,
+    featured_image: featuredImageLocation,
   };
-  fetch("/create", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    redirect: "follow",
-    body: JSON.stringify({ data: newPost }),
-  })
-    .then((response) => response.json())
-    .then((data) => window.location = `/${data.slug}`)
-    .catch((error) => (console.error(error)));
+  try {
+    // setStatus("Loading", { data: "Data Loading..." });
+    const response = await fetch("/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data: newPost }),
+    });
+
+    const responseJson = await response.json();
+    const data = JSON.parse(responseJson);
+    console.log("Data: ", data);
+    if (data.ok) {
+      setStatus("Post saved!", { ok: true });
+      setUpdatedDate(data.updated_at);
+    }
+  } catch (error) {
+    setStatus("There was an error. Try again.", { ok: false });
+    console.error(error);
+  }
+
+  function setStatus(message, status) {
+    updateMessageSpan.innerText = message;
+    flashMessage(message, status);
+  }
+
+  function setUpdatedDate(dateString) {
+    updateDateSpan.innerText = "Last updated at " + dateString;
+  }
+
+  function flashMessage(message, status) {
+    if (status.ok) {
+      updateDateSpan.classList.add("flash");
+      updateMessageSpan.classList.add("flash");
+      updateDateSpan.classList.contains("flash-error")
+        ? updateDateSpan.classList.remove("flash-error")
+        : null;
+      updateMessageSpan.classList.contains("flash-error")
+        ? updateMessageSpan.classList.remove("flash-error")
+        : null;
+      endFlash("flash");
+    } else {
+      console.log("Failure: ", status);
+      updateDateSpan.classList.add("flash-error");
+      updateMessageSpan.classList.add("flash-error");
+      updateDateSpan.classList.contains("flash")
+        ? updateDateSpan.classList.remove("flash")
+        : null;
+      updateMessageSpan.classList.contains("flash")
+        ? updateMessageSpan.classList.remove("flash")
+        : null;
+      endFlash("flash-error");
+    }
+  }
+
+  function endFlash(className) {
+    setTimeout(() => {
+      updateDateSpan.classList.remove(className);
+      updateMessageSpan.classList.remove(className);
+    }, 5000);
+  }
 }
