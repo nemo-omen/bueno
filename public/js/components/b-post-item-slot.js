@@ -2,7 +2,7 @@ import {
   LitElement,
   html,
   css,
-} from "../../web_modules/lit-element.js";
+} from "https://cdn.skypack.dev/lit-element";
 
 class BuenoPostItemSlot extends LitElement {
   static get properties() {

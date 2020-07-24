@@ -85,10 +85,12 @@ export class PgService {
         post.featured_image,
       );
       if (result.rowCount > 0) {
+        console.log(result);
         await client.end();
         return ({ ok: true, slug: result.rows[0][0] });
       } else {
         await client.end();
+        console.log(result);
         console.log(`Oops! Didn't work for some reason: `, result);
         return ({ ok: false });
       }

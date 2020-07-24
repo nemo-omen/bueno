@@ -19,6 +19,10 @@ export default class CreateResource extends Drash.Http.Resource {
   public async POST() {
     const requestPost: any = this.request.getBodyParam("data");
     const postTitle: string = requestPost.title;
+    const strippedTitle = postTitle.replace(
+      "[^0-9a-zA-Z]+",
+      "",
+    );
     const post: any = {
       ...requestPost,
       id: v4.generate(),
@@ -26,7 +30,7 @@ export default class CreateResource extends Drash.Http.Resource {
       // featured_image: "https://picsum.photos/800/400",
       slug: slugify(postTitle, {
         replacement: "_",
-        remove: "[^A-z][\\\^]?",
+        remove: "'",
         lower: true,
       }),
     };

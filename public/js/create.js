@@ -1,4 +1,4 @@
-import markymark from "https://cdn.pika.dev/marky-marked@^5.0.3";
+import markymark from "https://cdn.skypack.dev/marky-marked";
 import { featuredImageLocation } from "./image_upload.js";
 import "./components/b-dropzone.js";
 
