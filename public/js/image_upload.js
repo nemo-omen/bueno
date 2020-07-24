@@ -13,7 +13,14 @@ const ddEvents = ["dragenter", "dragleave", "dragover", "drop"];
 const highlightEvents = ["dragenter", "dragover"];
 const unhighlightEvents = ["dragleave", "drop"];
 
-export let featuredImageLocation = "";
+const currentFeaturedImage = imageUploadSection.style.backgroundImage.replace(
+  'url("',
+  "",
+).replace('")', "");
+
+export let featuredImageLocation = currentFeaturedImage != null || undefined
+  ? currentFeaturedImage
+  : "";
 
 ddEvents.forEach((eventName) => {
   imageUploadSection.addEventListener(eventName, preventDefaults, false);
