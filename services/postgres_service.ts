@@ -1,6 +1,7 @@
 import { load } from "../deps.ts";
 import { Client } from "../deps.ts";
 import { QueryResult } from "../deps.ts";
+import { Post } from "../models/post.ts";
 
 load();
 
@@ -68,13 +69,12 @@ export class PgService {
     }
   }
 
-  async create(post) {
+  async create(post: Post) {
     await client.connect();
     try {
       const result: QueryResult = await client.query(
-        `INSERT INTO posts (id, slug, publish_date_string, title, subtitle, excerpt, content, featured_image)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
-      RETURNING slug;`,
+        `INSERT INTO posts (id, slug, publish_date_string, title, subtitle, excerpt, content, featured_image, created_at, updated_at)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`,
         post.id,
         post.slug,
         post.publish_date_string,
@@ -83,14 +83,15 @@ export class PgService {
         post.excerpt,
         post.content,
         post.featured_image,
+        post.created_at,
+        post.updated_at,
       );
       if (result.rowCount > 0) {
-        console.log(result);
+        console.log(result.rows);
         await client.end();
-        return ({ ok: true, slug: result.rows[0][0] });
+        return ({ ok: true });
       } else {
         await client.end();
-        console.log(result);
         console.log(`Oops! Didn't work for some reason: `, result);
         return ({ ok: false });
       }

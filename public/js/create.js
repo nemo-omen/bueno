@@ -10,6 +10,7 @@ const markdownInput = markymark(markdownElement);
 const editor = document.querySelector("textarea.marky-editor");
 const updateMessageSpan = document.querySelector(".update-message");
 const updateDateSpan = document.querySelector(".update-date");
+const publishedPostLink = document.querySelector(".published-post-link");
 
 const toolbar = document.querySelector(".marky-toolbar");
 
@@ -22,9 +23,9 @@ toolbar.insertAdjacentHTML("afterbegin", customButtonsTemplate);
 const publishButton = document.querySelector(".post-publish-button");
 const draftButton = document.querySelector(".post-draft-button");
 
-[publishButton, draftButton].forEach((element) =>
-  element.dataset.postid = postId
-);
+// [publishButton, draftButton].forEach((element) =>
+//   element.dataset.postid = postId
+// );
 
 const secondaryPublishButton = document.querySelector(
   ".post-publish-secondary-button",
@@ -91,6 +92,7 @@ async function handlePublish() {
     if (data.ok) {
       setStatus("Post saved!", { ok: true });
       setUpdatedDate(data.updated_at);
+      setPublishedPostLink(data.slug);
     }
   } catch (error) {
     setStatus("There was an error. Try again.", { ok: false });
@@ -104,6 +106,10 @@ async function handlePublish() {
 
   function setUpdatedDate(dateString) {
     updateDateSpan.innerText = "Last updated at " + dateString;
+  }
+
+  function setPublishedPostLink(slug) {
+    publishedPostLink.innerHTML = `<a href="/${slug}">View post</a>`;
   }
 
   function flashMessage(message, status) {
