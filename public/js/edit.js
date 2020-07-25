@@ -32,9 +32,7 @@ toolbar.insertAdjacentHTML("afterbegin", customButtonsTemplate);
 
 const publishButton = document.querySelector(".post-publish-button");
 const draftButton = document.querySelector(".post-draft-button");
-[publishButton, draftButton].forEach((element) =>
-  element.dataset.postid = postId
-);
+
 markdownInput.on("markyblur", (event) => {
   handleSave();
 });

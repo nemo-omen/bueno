@@ -77,7 +77,7 @@ export class PgService {
       RETURNING slug;`,
         post.id,
         post.slug,
-        post.created_at,
+        post.publish_date_string,
         post.title,
         post.subtitle,
         post.excerpt,
