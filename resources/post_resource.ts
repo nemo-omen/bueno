@@ -9,24 +9,18 @@ export default class PostResource extends Drash.Http.Resource {
 
   public async GET() {
     const postSlug = this.request.getPathParam("slug");
-    // const postResponse: any = await ps.findPostBySlug(postSlug);
     const postResponse: any = await pg.getOne("posts", "slug", postSlug);
+    const returnedPost = postResponse.result[0];
 
-    const returnedPost = postResponse[0];
     // Parse the stored markdown so we can send html to client
+    // Todo: move this into middleware ... maybe
+
     const unparsed = returnedPost.content;
     const parsed = Marked.parse(unparsed);
+
     const post: any = {
-      id: returnedPost.id,
-      slug: returnedPost.slug,
-      publishDateString: returnedPost.publish_date_string,
-      title: returnedPost.title,
-      subtitle: returnedPost.subtitle,
-      excerpt: returnedPost.excerpt,
+      ...returnedPost,
       content: parsed,
-      featuredImage: returnedPost.featured_image,
-      createdAt: returnedPost.createdAt,
-      updatedAt: returnedPost.updatedAt,
     };
 
     this.response.body = this.response.render("/templates/post.html", {

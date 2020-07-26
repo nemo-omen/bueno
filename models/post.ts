@@ -1,6 +1,7 @@
 import { v4, moment, slugify } from "../deps.ts";
 import { PgService } from "../services/postgres_service.ts";
 
+// make a new postgres service
 const pg = new PgService();
 
 interface PostOptions {
@@ -118,33 +119,50 @@ export class Post {
     this.publish_date_string = moment().format("MMMM Do YYYY, h:mm:ss a");
   }
 
+  // save to db
   async create() {
     const response = await pg.create(this);
-    // console.log(this);
     if (response.ok) {
-      // this.response.body = JSON.stringify({ ok: true, slug: response.slug });
-      // return this.response;
-      return ({
+      return {
         ok: true,
         slug: this.slug,
         updated_at: this.updated_at,
-      });
+      };
     } else {
-      // this.response.body = JSON.stringify(
-      // { ok: false, message: "Something went wrong." },
-      // )
-      // return this.response;
-      // return ({ ok: false });
+      return ({ ok: false });
     }
   }
 
-  remove() {
+  async update() {
+    try {
+      const response = await pg.update(this);
+      if (response.ok) {
+        return {
+          ok: true,
+          slug: this.slug,
+          updated_at: moment(this.updated_at).format("LLL"),
+        };
+      } else {
+        return { ok: false, response: response };
+      }
+    } catch (error) {
+      console.error(error);
+      return { ok: false, error: error };
+    }
   }
 
-  update() {
-  }
-
-  delete() {
+  async remove() {
+    try {
+      const response = await pg.delete(this.id);
+      if (response.ok) {
+        return response;
+      } else {
+        return { ok: false };
+      }
+    } catch (error) {
+      console.error(error);
+      return { ok: false, error: error };
+    }
   }
 
   draft() {

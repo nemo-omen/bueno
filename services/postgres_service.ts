@@ -21,24 +21,11 @@ export class PgService {
       const queryResult = await client.query(
         `SELECT * FROM ${table} ORDER BY ${sortBy} DESC;`,
       );
-      let returnedResult = [];
-      const columns = queryResult.rowDescription.columns;
-      const columnNames: string[] = columns.map((column) => {
-        return column.name;
-      });
-      const rows = queryResult.rows;
-      rows.forEach((row, rowIndex) => {
-        let rowData: any = {};
-        row.forEach((rowVal, rIndex) => {
-          const columnName: string = columnNames[rIndex];
-          rowData[columnName] = row[rIndex];
-        });
-        returnedResult.push({ ...rowData });
-      });
-      await client.end();
+      const returnedResult = this.objectify(queryResult);
       return returnedResult;
     } catch (error) {
       console.error(error);
+      return { ok: false, error: error };
     }
   }
 
@@ -48,33 +35,22 @@ export class PgService {
       const queryResult = await client.query(
         `SELECT * FROM ${table} WHERE ${column} = '${param}'`,
       );
-      let returnedResult = [];
-      const columns = queryResult.rowDescription.columns;
-      const columnNames: string[] = columns.map((column) => {
-        return column.name;
-      });
-      const rows = queryResult.rows;
-      rows.forEach((row, rowIndex) => {
-        let rowData: any = {};
-        row.forEach((rowVal, rIndex) => {
-          const columnName: string = columnNames[rIndex];
-          rowData[columnName] = row[rIndex];
-        });
-        returnedResult.push({ ...rowData });
-      });
+      const returnedResult = this.objectify(queryResult);
+      // console.log("Get one result: ", returnedResult);
       await client.end();
-      return returnedResult;
+      return { ok: true, result: returnedResult };
     } catch (error) {
       console.error(error);
+      return { ok: false, error: error };
     }
   }
 
   async create(post: Post) {
     await client.connect();
     try {
-      const result: QueryResult = await client.query(
+      const queryResult: QueryResult = await client.query(
         `INSERT INTO posts (id, slug, publish_date_string, title, subtitle, excerpt, content, featured_image, created_at, updated_at)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`,
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;`,
         post.id,
         post.slug,
         post.publish_date_string,
@@ -86,17 +62,55 @@ export class PgService {
         post.created_at,
         post.updated_at,
       );
-      if (result.rowCount > 0) {
-        console.log(result.rows);
+      if (queryResult.rowCount > 0) {
+        const returnedResult = this.objectify(queryResult);
         await client.end();
-        return ({ ok: true });
+        return ({ ok: true, result: returnedResult });
       } else {
         await client.end();
-        console.log(`Oops! Didn't work for some reason: `, result);
+        console.log(`Oops! Didn't work for some reason: `, queryResult);
         return ({ ok: false });
       }
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  async update(post: Post) {
+    // const post = { ...data.post };
+    console.log(post);
+    await client.connect();
+    try {
+      const queryResult: QueryResult = await client.query(
+        `UPDATE posts
+        SET title = $1,
+        subtitle = $2,
+        excerpt = $3,
+        content = $4,
+        featured_image = $5,
+        updated_at = $6
+        WHERE id = $7 RETURNING *;`,
+        post.title,
+        post.subtitle,
+        post.excerpt,
+        post.content,
+        post.featured_image,
+        post.updated_at,
+        post.id,
+      );
+      console.log("queryResult", queryResult);
+      const returnedResult = this.objectify(queryResult);
+      console.log("Returned result: ", returnedResult);
+      if (queryResult.rowCount > 0) {
+        await client.end();
+        return { ok: true, result: returnedResult };
+      } else {
+        await client.end();
+        return { ok: false, result: returnedResult };
+      }
+    } catch (error) {
+      console.error(error);
+      return { ok: false, error: error };
     }
   }
 
@@ -119,39 +133,21 @@ export class PgService {
     }
   }
 
-  async update(data) {
-    const post = { ...data.post };
-    console.log(post);
-    await client.connect();
-    try {
-      const result: QueryResult = await client.query(
-        `UPDATE posts
-        SET title = $1,
-        subtitle = $2,
-        excerpt = $3,
-        content = $4,
-        featured_image = $5,
-        updated_at = $6
-        WHERE id = $7
-        RETURNING updated_at;`,
-        post.title,
-        post.subtitle,
-        post.excerpt,
-        post.content,
-        post.featured_image,
-        post.updated_at,
-        post.id,
-      );
-      console.log(result);
-      if (result.rowCount > 0) {
-        await client.end();
-        return { ok: true, updated_at: result.rows[0][0] };
-      } else {
-        await client.end();
-        return { ok: false };
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  objectify(queryResult: QueryResult) {
+    let returnedResult = [];
+    const columns = queryResult.rowDescription.columns;
+    const columnNames: string[] = columns.map((column) => {
+      return column.name;
+    });
+    const rows = queryResult.rows;
+    rows.forEach((row, rowIndex) => {
+      let rowData: any = {};
+      row.forEach((rowVal, rIndex) => {
+        const columnName: string = columnNames[rIndex];
+        rowData[columnName] = row[rIndex];
+      });
+      returnedResult.push({ ...rowData });
+    });
+    return returnedResult;
   }
 }

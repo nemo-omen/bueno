@@ -2,8 +2,8 @@
 
 <section id="post-section">
   <section class="post-header">
-    <% if(post.featuredImage) { %>
-    <section class="post-featured-image" style="background-image: url('<% post.featuredImage %>')"
+    <% if(post.featured_image) { %>
+    <section class="post-featured-image" style="background-image: url('<% post.featured_image %>')"
       title=" <% post.title %>">
     </section>
     <% } %>
@@ -14,7 +14,7 @@
     <h3 class="post-subtitle"><% post.subtitle %></h3>
     <% } %>
 
-    <p class="post-date"><% post.publishDateString %></p>
+    <p class="post-date"><% post.publish_date_string %></p>
   </section>
   <section class="post-control-section">
     <a class="button post-edit-button" href="/edit/<% post.id %>">Edit</a>

@@ -1,6 +1,7 @@
 import { Drash } from "../deps.ts";
 import { moment } from "../deps.ts";
 import { PgService } from "../services/postgres_service.ts";
+import { Post } from "../models/post.ts";
 
 const pg: PgService = new PgService();
 // const ps = new PostsService();
@@ -12,9 +13,10 @@ export default class EditResource extends Drash.Http.Resource {
     console.log("/edit Get requested");
     const id = this.request.getPathParam("id");
     const response = await pg.getOne("posts", "id", id);
+    console.log(response);
     const post = {
-      ...response[0],
-      updated_at: moment(response[0].updated_at).format("LLL"),
+      ...response.result[0],
+      updated_at: moment(response.result[0].updated_at).format("LLL"),
     };
     console.log("/edit post: ", post);
     this.response.body = this.response.render(
@@ -38,27 +40,17 @@ export default class EditResource extends Drash.Http.Resource {
 
   public async PUT() {
     console.log("/edit PUT requested");
-    const updatedPost: Object = this.request.getBodyParam("data");
-    const response = await pg.update(
-      {
-        post: {
-          ...updatedPost,
-          updated_at: moment.utc().toDate().toUTCString(),
-          // featured_image: "https://picsum.photos/800/400",
-        },
-      },
-    );
-    if (!response) {
-      console.log("No response...");
-    }
-    if (response.ok) {
-      const updated_at = response.updated_at;
-      this.response.body = JSON.stringify(
-        { ok: true, updated_at: moment(updated_at).format("LLL") },
-      );
-    } else {
-      this.response.body = JSON.stringify({ ok: false });
-    }
+    const requestPost: Object = this.request.getBodyParam("data");
+    const post: any = { ...requestPost };
+    const updatePost: Post = new Post({ ...post });
+    const response = await updatePost.update();
+
+    const data = response
+      ? response
+      : { ok: false, message: "There was no response..." };
+
+    this.response.body = JSON.stringify(data);
+
     return this.response;
   }
 }

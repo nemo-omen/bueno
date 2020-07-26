@@ -8,16 +8,26 @@ export default class HomeResource extends Drash.Http.Resource {
   static paths: Array<string> = ["/"];
 
   public async GET() {
-    const svcPosts: Array<Object> = await pg.getAllSorted(
-      "posts",
-      "created_at",
-    );
-    const posts: Array<Object> = [...svcPosts];
+    try {
+      const svcPosts: any = await pg.getAllSorted(
+        "posts",
+        "created_at",
+      );
+      if (svcPosts.length > 0) {
+        const posts: Array<any> = [...svcPosts];
 
-    this.response.body = this.response.render("/templates/home.html", {
-      posts: posts,
-    });
-
+        this.response.body = this.response.render("/templates/home.html", {
+          posts: posts,
+        });
+      } else {
+        this.response.body = this.response.render("/trmplates/home.html", {
+          posts: [],
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      this.response.body = JSON.stringify({ ok: false, error: error });
+    }
     return this.response;
   }
 
