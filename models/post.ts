@@ -151,9 +151,10 @@ export class Post {
     }
   }
 
-  async remove() {
+  static async remove(id: string) {
     try {
-      const response = await pg.delete(this.id);
+      const response = await pg.delete(id);
+
       if (response.ok) {
         return response;
       } else {

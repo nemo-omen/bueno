@@ -16,13 +16,13 @@ const client = new Client({
 
 export class PgService {
   async getAllSorted(table, sortBy) {
-    await client.connect();
     try {
-      const queryResult = await client.query(
+      const response = await this.executeQuery(
         `SELECT * FROM ${table} ORDER BY ${sortBy} DESC;`,
       );
-      const returnedResult = this.objectify(queryResult);
-      return returnedResult;
+      if (response.ok) {
+        return response.result;
+      }
     } catch (error) {
       console.error(error);
       return { ok: false, error: error };
@@ -32,13 +32,10 @@ export class PgService {
   async getOne(table, column, param) {
     await client.connect();
     try {
-      const queryResult = await client.query(
+      const response = await this.executeQuery(
         `SELECT * FROM ${table} WHERE ${column} = '${param}'`,
       );
-      const returnedResult = this.objectify(queryResult);
-      // console.log("Get one result: ", returnedResult);
-      await client.end();
-      return { ok: true, result: returnedResult };
+      return response;
     } catch (error) {
       console.error(error);
       return { ok: false, error: error };
@@ -46,62 +43,53 @@ export class PgService {
   }
 
   async create(post: Post) {
-    await client.connect();
+    const myQuery = this.buildQuery("posts", "INSERT", post);
+    console.log(myQuery);
     try {
-      const queryResult: QueryResult = await client.query(
-        `INSERT INTO posts (id, slug, publish_date_string, title, subtitle, excerpt, content, featured_image, created_at, updated_at)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;`,
-        post.id,
-        post.slug,
-        post.publish_date_string,
-        post.title,
-        post.subtitle,
-        post.excerpt,
-        post.content,
-        post.featured_image,
-        post.created_at,
-        post.updated_at,
-      );
-      if (queryResult.rowCount > 0) {
-        const returnedResult = this.objectify(queryResult);
-        await client.end();
-        return ({ ok: true, result: returnedResult });
-      } else {
-        await client.end();
-        console.log(`Oops! Didn't work for some reason: `, queryResult);
-        return ({ ok: false });
-      }
+      const response = await this.executeQuery(myQuery);
+      console.log(response);
+      return response;
     } catch (error) {
       console.error(error);
+      return { ok: false, error: error };
     }
   }
 
   async update(post: Post) {
-    // const post = { ...data.post };
-    console.log(post);
+    const myQuery = this.buildQuery("posts", "UPDATE", post, post.id);
+    console.log(myQuery);
+    try {
+      const response = await this.executeQuery(myQuery);
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.error(error);
+      return { ok: false, error: error };
+    }
+  }
+
+  async delete(id) {
     await client.connect();
     try {
-      const queryResult: QueryResult = await client.query(
-        `UPDATE posts
-        SET title = $1,
-        subtitle = $2,
-        excerpt = $3,
-        content = $4,
-        featured_image = $5,
-        updated_at = $6
-        WHERE id = $7 RETURNING *;`,
-        post.title,
-        post.subtitle,
-        post.excerpt,
-        post.content,
-        post.featured_image,
-        post.updated_at,
-        post.id,
+      const response = await this.executeQuery(
+        `DELETE FROM posts WHERE id = '${id}' RETURNING *;`,
       );
-      console.log("queryResult", queryResult);
-      const returnedResult = this.objectify(queryResult);
-      console.log("Returned result: ", returnedResult);
-      if (queryResult.rowCount > 0) {
+      return response;
+    } catch (error) {
+      console.error(error);
+      return { ok: false, error: error };
+    }
+  }
+
+  async executeQuery(query: any, options: any = null) {
+    await client.connect();
+    try {
+      const result: QueryResult = !options
+        ? await client.query(query)
+        : await client.query(query, options);
+      const returnedResult = this.objectify(result);
+      console.log(returnedResult);
+      if (result.rowCount > 0) {
         await client.end();
         return { ok: true, result: returnedResult };
       } else {
@@ -114,23 +102,42 @@ export class PgService {
     }
   }
 
-  async delete(id) {
-    await client.connect();
-    try {
-      const result: QueryResult = await client.query(
-        "DELETE FROM posts WHERE id = $1;",
-        id,
-      );
-      if (result.rowCount > 0) {
-        await client.end();
-        return { ok: true };
-      } else {
-        await client.end();
-        return { ok: false };
-      }
-    } catch (error) {
-      console.error(error);
+  buildQuery(
+    table: string,
+    queryType: string,
+    queryProps: object,
+    id: string = "",
+  ) {
+    const keys = Object.keys(queryProps);
+    const values = Object.values(queryProps);
+    const entries = Object.entries(queryProps);
+    let queryPhrase = "";
+
+    const keySet = keys.map((key) => {
+      return ` ${key}`;
+    });
+
+    const valueSet = values.map((value) =>
+      typeof (value) === "string" ? ` $$${value}$$` : ` ${value}`
+    ).toString();
+
+    const entriesMap = entries.map((entry) => {
+      return typeof entry[1] === "string"
+        ? `${entry[0]} = $$${entry[1]}$$`
+        : `${entry[0]} = ${entry[1]}`;
+    });
+
+    switch (queryType) {
+      case "INSERT":
+        queryPhrase =
+          `INSERT INTO ${table} (${keySet.toString()}) VALUES (${valueSet}) RETURNING *;`;
+        break;
+      case "UPDATE":
+        queryPhrase =
+          `UPDATE ${table} SET ${entriesMap.toString()} WHERE id = '${id}' RETURNING *;`;
+        break;
     }
+    return queryPhrase;
   }
 
   objectify(queryResult: QueryResult) {

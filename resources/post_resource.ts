@@ -1,6 +1,7 @@
 import { Drash } from "../deps.ts";
 import { Marked } from "../deps.ts";
 import { PgService } from "../services/postgres_service.ts";
+import { Post } from "../models/post.ts";
 
 const pg: PgService = new PgService();
 
@@ -37,13 +38,16 @@ export default class PostResource extends Drash.Http.Resource {
 
   public async DELETE() {
     const id = this.request.getBodyParam("id");
-    const response = await pg.delete(id);
-    if (response.ok) {
-      console.log("Delete request ok");
-      this.response.body = JSON.stringify({ ok: true, id: id });
-    } else {
-      console.log("There was an error");
-      this.response.body = JSON.stringify({ ok: false });
+    try {
+      const response = await Post.remove(id);
+      if (response.ok) {
+        this.response.body = JSON.stringify({ ok: true, id: id });
+      } else {
+        console.log("There was an error");
+        this.response.body = JSON.stringify({ ok: false });
+      }
+    } catch (error) {
+      console.error(error);
     }
     return this.response;
   }

@@ -34,7 +34,8 @@ async function deletePost(id) {
     },
     body: JSON.stringify({ id: id }),
   });
-  const data = await response.json();
+  const jsonResponse = await response.json();
+  const data = JSON.parse(jsonResponse);
   if (data.ok) {
     console.log(data);
     removeDomPost(data.id);
