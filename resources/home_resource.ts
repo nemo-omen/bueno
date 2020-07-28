@@ -20,7 +20,7 @@ export default class HomeResource extends Drash.Http.Resource {
           posts: posts,
         });
       } else {
-        this.response.body = this.response.render("/trmplates/home.html", {
+        this.response.body = this.response.render("/templates/home.html", {
           posts: [],
         });
       }
