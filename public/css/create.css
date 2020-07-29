@@ -78,7 +78,7 @@
     margin: 0;
     min-height: 1rem;
     max-height: 1rem;
-    font-size: 0.75rem;
+    font-size: 0.6rem;
 }
 #message-section a {
     color: var(--deepBlue-400);
@@ -93,7 +93,7 @@
     opacity: 0;
     transition: all 0.3s ease-in-out;
 }
-.update-date {
+.update-date, .publish-date {
     color: var(--primaryGray-700);
     font-style: italic;
     transition: all 0.3s ease-in-out;

@@ -17,6 +17,7 @@ export default class EditResource extends Drash.Http.Resource {
     const post = {
       ...response.result[0],
       updated_at: moment(response.result[0].updated_at).format("LLL"),
+      created_at: moment(response.result[0].created_at).format("LLL"),
     };
     console.log("/edit post: ", post);
     this.response.body = this.response.render(

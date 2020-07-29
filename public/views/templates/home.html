@@ -1,6 +1,6 @@
 <% extends("/index.html") %>
 
-<section id="post-list-section">
+<section id="post-list-section" class="showHide animate__animated animate__fadeInRight">
   <% for(let index in posts) { %>
   <b-post-item-slot subtitle="<% posts[index].subtitle %>" id="<% posts[index].id %>" slug="<% posts[index].slug %>">
     <h2 slot="post-title"><a href="/<% posts[index].slug %>"><% posts[index].title %></a></h2>

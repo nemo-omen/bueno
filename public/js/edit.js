@@ -108,7 +108,7 @@ async function handleUpdate(id) {
   }
 
   function setUpdatedDate(dateString) {
-    updateDateSpan.innerText = "Last updated at " + dateString;
+    updateDateSpan.innerText = "Updated: " + dateString;
   }
 
   function flashMessage(message, status) {

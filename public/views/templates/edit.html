@@ -2,7 +2,7 @@
 <script src="/public/js/edit.js" type="module"></script>
 <script src="/public/js/image_upload.js" type="module"></script>
 
-<section id="edit-section">
+<section id="edit-section" class="showHide animate__animated animate__fadeInRight">
   <h2>Edit Post</h2>
   <section class="post-create-meta-section">
     <section class="post-create-meta-input">
@@ -17,11 +17,11 @@
   </section>
   <section id="message-section">
     <span class="update-message">Updating...</span>
+    <span class="publish-date">Published:<% post.created_at %> </span>
+    <span class="update-date">Updated: <% post.updated_at %></span>
     <a href="/<% post.slug %>">View post</a>
-    <span class="update-date">Published:<% post.created_at %> </span>
-    <span class="update-date">Last updated: <% post.updated_at %></span>
   </section>
-  <section class="markdown-input" data-content="<% post.content %>"></section>
+  <section class="markdown-input" data-content="<% post.content %>" animate__animated animate__fadeInUp></section>
   <section class="post-create-secondary-control">
     <button class="post-draft-secondary-button" data-postid="<% post.id %>">Draft</button>
     <button class="post-publish-secondary-button" data-postid="<% post.id %>">Update</button>
