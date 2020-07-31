@@ -27,7 +27,9 @@ export default class CreateResource extends Drash.Http.Resource {
     );
 
     const post: any = { ...requestPost };
-    const newPost: Post = new Post({ ...post });
+    const newPost: Post = new Post(
+      { ...post },
+    );
     const response = await newPost.create();
     // const response = await pg.create(post);
     if (response.ok) {

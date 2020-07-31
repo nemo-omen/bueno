@@ -44,6 +44,7 @@ export class PgService {
 
   async create(post: Post) {
     const myQuery = this.buildQuery("posts", "INSERT", post);
+    console.log("Create post: ", post);
     console.log(myQuery);
     try {
       const response = await this.executeQuery(myQuery);

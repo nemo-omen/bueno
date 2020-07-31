@@ -13,11 +13,9 @@ export default class EditResource extends Drash.Http.Resource {
     console.log("/edit Get requested");
     const id = this.request.getPathParam("id");
     const response = await pg.getOne("posts", "id", id);
-    console.log(response);
     const post = {
       ...response.result[0],
-      updated_at: moment(response.result[0].updated_at).format("LLL"),
-      created_at: moment(response.result[0].created_at).format("LLL"),
+      update_date_string: moment(response.result[0].updated_at).format("LLL"),
     };
     console.log("/edit post: ", post);
     this.response.body = this.response.render(
@@ -47,7 +45,9 @@ export default class EditResource extends Drash.Http.Resource {
     console.log("/edit PUT requested");
     const requestPost: Object = this.request.getBodyParam("data");
     const post: any = { ...requestPost };
+    console.log("Put post: ", post);
     const updatePost: Post = new Post({ ...post });
+    console.log("Update post: ", updatePost);
     const response = await updatePost.update();
 
     const data = response

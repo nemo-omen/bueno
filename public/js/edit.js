@@ -10,6 +10,8 @@ const markdownInput = markymark(markdownElement);
 const editor = document.querySelector("textarea.marky-editor");
 const updateMessageSpan = document.querySelector(".update-message");
 const updateDateSpan = document.querySelector(".update-date");
+const publishSpan = document.querySelector(".publish-date");
+const createdAt = publishSpan.dataset.created_at;
 
 editor.value = markdownElement.dataset.content;
 

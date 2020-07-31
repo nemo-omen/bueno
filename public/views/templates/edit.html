@@ -20,8 +20,8 @@
   </section>
   <section id="message-section">
     <span class="update-message">Updating...</span>
-    <span class="publish-date">Published:<% post.created_at %> </span>
-    <span class="update-date">Updated: <% post.updated_at %></span>
+    <span class="publish-date" data-created_at="<% post.created_at %>">Published: <% post.publish_date_string %> </span>
+    <span class="update-date">Updated: <% post.update_date_string %></span>
     <a href="/<% post.slug %>">View post</a>
   </section>
   <section class="markdown-input" data-content="<% post.content %>" animate__animated animate__fadeInUp></section>

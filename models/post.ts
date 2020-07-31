@@ -70,11 +70,11 @@ export class Post {
     } else {
       this.slug = slug;
     }
-    if (!created_at) {
-      this.generateCreatedAt();
-    } else {
-      this.created_at = created_at;
-    }
+    // if (created_at) {
+    //   this.created_at = created_at;
+    // } else {
+    //   this.generateCreatedAt();
+    // }
     if (!updated_at) {
       this.updated_at = this.created_at;
     } else {
@@ -121,6 +121,8 @@ export class Post {
 
   // save to db
   async create() {
+    this.created_at = moment().toISOString();
+    this.updated_at = moment().toISOString();
     const response = await pg.create(this);
     if (response.ok) {
       return {
@@ -135,6 +137,10 @@ export class Post {
 
   async update() {
     try {
+      const savedPostResult = await pg.getOne("posts", "id", this.id);
+      const savedPost = savedPostResult.result[0];
+      this.created_at = savedPost.created_at.toISOString();
+      this.updated_at = moment().toISOString();
       const response = await pg.update(this);
       if (response.ok) {
         return {
