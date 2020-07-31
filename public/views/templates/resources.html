@@ -1,9 +1,17 @@
 <% extends("/index.html") %>
 
 <style>
+  #resources-section {
+    display: flex;
+    flex-direction: column;
+  }
 
+  html {
+    visibility: visible;
+    opacity: 1;
+  }
 </style>
-<section id="resources-section" class="showHide animate__animated animate__fadeInRight">
+<section id="resources-section" class="showHide slide-in-rightt">
   <h2>Resources</h2>
   <!-- <div x-data="{open: false}">
     <button @click="open = true">Open</button>

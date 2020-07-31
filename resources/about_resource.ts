@@ -4,7 +4,11 @@ export default class AboutResource extends Drash.Http.Resource {
   static paths = ["/about"];
 
   public async GET() {
-    this.response.body = this.response.render("/templates/about.html");
+    this.response.body = this.response.render("/templates/about.html", {
+      page_title: "about|bueno",
+      description:
+        "bueno is a blog about using buildless techniques for web development with deno, a javascript runtime environment.",
+    });
 
     return this.response;
   }

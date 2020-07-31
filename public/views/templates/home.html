@@ -1,20 +1,80 @@
 <% extends("/index.html") %>
+<style>
+  #post-list-section {
+    display: flex;
+    flex-direction: column;
+  }
 
-<section id="post-list-section" class="showHide animate__animated animate__fadeInRight">
+  .post-list-item {
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 1rem 0;
+    color: #fff;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    color: #282828;
+    overflow: hidden;
+    transition: all 0.4ms ease-out;
+    opacity: 1;
+  }
+
+  .post-list-item-header {
+    background-color: #fff;
+    color: var(--fireTruck);
+    margin-bottom: 1rem;
+  }
+
+  .post-list-item-title {
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
+    padding: 0;
+  }
+
+  .post-list-item-date {
+    margin: 0;
+    font-size: 0.75rem;
+  }
+
+  .post-list-item-excerpt {
+    line-height: 150%;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .post-list-item-footer {
+    margin-top: 0.5rem;
+    opacity: 0;
+    transition: all .2s ease-out;
+  }
+
+  .post-list-item-footer:hover {
+    opacity: 1;
+  }
+
+  html {
+    visibility: visible;
+    opacity: 1;
+  }
+</style>
+<section id="post-list-section" class="showHide slide-in-right">
   <% for(let index in posts) { %>
-  <b-post-item-slot subtitle="<% posts[index].subtitle %>" id="<% posts[index].id %>" slug="<% posts[index].slug %>">
-    <h2 slot="post-title"><a href="/<% posts[index].slug %>"><% posts[index].title %></a></h2>
-    <p slot="post-date"><% posts[index].publish_date_string %></p>
+  <article class="post-list-item" id="<% posts[index].id %>">
+    <header class="post-list-item-header">
+      <h2 slot="post-title"><a href="/<% posts[index].slug %>"><% posts[index].title %></a></h2>
+      <p slot="post-date"><% posts[index].publish_date_string %></p>
+    </header>
     <p slot="post-excerpt"><a
         href="/<% posts[index].slug %>"><% posts[index].excerpt ? posts[index].excerpt : posts[index].content.substring(0, 150) %>
         ...</a></p>
-    <section class="post-control-section" slot="post-control">
-      <a class="button post-edit-button" href="/edit/<% posts[index].id %>">Edit</a>
-      <button class="post-revert-button" id="draft-<% posts[index].id %>" title="Revert to draft"
-        data-postid="<% posts[index].id %>">Draft</button>
-      <button class="post-delete-button" id="delete-<% posts[index].id %>" title="Delete"
-        data-postid="<% posts[index].id %>">Delete</button>
-    </section>
-  </b-post-item-slot>
+    <footer class="post-list-item-footer">
+      <section class="post-control-section">
+        <a class="button post-edit-button" href="/edit/<% posts[index].id %>">Edit</a>
+        <button class="post-revert-button" id="draft-<% posts[index].id %>" title="Revert to draft"
+          data-postid="<% posts[index].id %>">Draft</button>
+        <button class="post-delete-button" id="delete-<% posts[index].id %>" title="Delete"
+          data-postid="<% posts[index].id %>">Delete</button>
+      </section>
+    </footer>
+  </article>
   <% } %>
 </section>

@@ -1,6 +1,90 @@
 <% extends("/index.html") %>
+<style>
+  #post-section {
+    display: flex;
+    flex-direction: column;
+  }
 
-<section id="post-section" class="showHide animate__animated animate__fadeInRight">
+  .post-header {
+    background-color: #fff;
+  }
+
+  .post-featured-image {
+    min-height: 40vmin;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 1rem 0;
+  }
+
+  .post-title {
+    font-size: 1.5rem;
+    margin: 0 0 0.25rem 0;
+    padding: 0;
+  }
+
+  .post-date {
+    margin: 0;
+    font-size: 0.75rem;
+  }
+
+  .post-control-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 0.25rem 0;
+    padding: 0;
+  }
+
+  .post-control-section button,
+  .post-control-section .button {
+    margin: 0 2px 0 0;
+    padding: 0.125rem 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .post-edit-button {
+    background-color: var(--deepBlue-300);
+  }
+
+  .post-edit-button:hover {
+    background-color: var(--deepBlue-400);
+  }
+
+  .post-revert-button {
+    background-color: var(--primaryGray-600);
+  }
+
+  .post-revert-button:hover {
+    background-color: var(--primaryGray-700);
+  }
+
+  .post-delete-button {
+    background-color: var(--fireTruck-400);
+  }
+
+  .post-delete-button:hover {
+    background-color: var(--fireTruck-500);
+  }
+
+  .post-body {
+    margin: 1rem 0;
+  }
+
+  .post-body a {
+    text-decoration: none;
+    color: var(--fireTruck);
+  }
+
+  .post-body a:hover {
+    text-decoration: underline;
+  }
+
+  .post-body p {
+    margin: 1rem 1rem 0 0;
+  }
+</style>
+<section id="post-section" class="showHide slide-in-right">
   <section class="post-header">
     <% if(post.featured_image) { %>
     <section class="post-featured-image" style="background-image: url('<% post.featured_image %>')"

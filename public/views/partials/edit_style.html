@@ -1,0 +1,178 @@
+<style>
+  #edit-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-create-meta-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    height: 7rem;
+    margin: 1rem 0;
+  }
+
+  .post-create-meta-input {
+    grid-column: 1/4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .post-create-meta-input input[type="text"],
+  .post-create-meta-input textarea {
+    outline: none;
+    padding: 0.25rem;
+    font-size: 0.75rem;
+    background-color: var(--primaryGray-300);
+    color: var(--primaryGray-800);
+    border: 1px solid var(--primaryGray-500);
+    transition: all .2s ease-out;
+    font-family: 'Mulish', sans-serif;
+  }
+
+  .post-create-meta-input input[type="text"]:focus,
+  .post-create-meta-input textarea:focus {
+    color: var(--primaryGray-900);
+    background-color: var(--primaryGray-200);
+    border: 1px solid var(--deepBlue);
+  }
+
+  #image-upload-section {
+    box-sizing: border-box;
+    background-color: #f6f6f6;
+    width: 100%;
+    height: 7rem;
+    margin: 0;
+    position: relative;
+    border: 1px solid #e4e4e4;
+    color: var(--lightGray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all .2s ease-out;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+
+  #image-upload-section.highlight,
+  #image-upload-section:hover {
+    border-color: rgb(145, 190, 233);
+    background-color: rgb(207, 219, 231);
+  }
+
+  .image-upload-paragraph {
+    margin-top: 0;
+    text-align: center;
+  }
+
+  #featured-image,
+  .hidden {
+    display: none;
+  }
+
+  #message-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    min-height: 1rem;
+    max-height: 1rem;
+    font-size: 0.6rem;
+  }
+
+  #message-section a {
+    color: var(--deepBlue-400);
+  }
+
+  .update-message {
+    color: var(--deepBlue-400);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .failure-message {
+    color: var(--fireTruck);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .update-date,
+  .publish-date {
+    color: var(--primaryGray-700);
+    font-style: italic;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .flash {
+    opacity: 1;
+    color: var(--deepBlue-400);
+  }
+
+  .flash-error {
+    color: var(--fireTruck);
+    opacity: 1;
+  }
+
+  .marky-mark {
+    padding: 0;
+    margin: 0;
+  }
+
+  .marky-toolbar {
+    margin: 0;
+  }
+
+  .marky-toolbar button {
+    font-size: 0.5rem;
+    margin: 0;
+    padding: 0.25rem 0.5rem;
+    border: none;
+    border-radius: 0;
+    background-color: #fff;
+    color: var(--primaryGray-800);
+  }
+
+  .marky-toolbar button:hover {
+    background-color: var(--primaryGray-200);
+    color: var(--deepBlue-700);
+  }
+
+  .marky-editor {
+    margin: 0;
+    width: 100%;
+    resize: none;
+    height: 60vmin;
+    font-size: 0.8rem;
+  }
+
+  .post-create-secondary-control {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 1rem 0;
+  }
+
+  .post-publish-secondary-button {
+    background-color: var(--fireTruck-300);
+  }
+
+  .post-draft-secondary-button {
+    background-color: var(--deepBlue-300);
+  }
+
+  .post-publish-secondary-button:hover {
+    background-color: var(--fireTruck-400);
+  }
+
+  .post-draft-secondary-button:hover {
+    background-color: var(--deepBlue-400);
+  }
+</style>

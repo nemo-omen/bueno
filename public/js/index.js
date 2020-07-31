@@ -1,7 +1,3 @@
-import "./components/b-header.js";
-import "./components/b-post-item.js";
-import "./components/b-post-item-slot.js";
-
 const deleteButtons = Array.from(
   document.querySelectorAll(".post-delete-button"),
 );

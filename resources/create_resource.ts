@@ -11,7 +11,10 @@ export default class CreateResource extends Drash.Http.Resource {
 
   public async GET() {
     console.log("create Get requested");
-    this.response.body = this.response.render("/templates/create.html");
+    this.response.body = this.response.render("/templates/create.html", {
+      page_title: "create|bueno",
+      description: "Create a new blog post",
+    });
     return this.response;
   }
 

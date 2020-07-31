@@ -18,6 +18,9 @@ export default class HomeResource extends Drash.Http.Resource {
 
         this.response.body = this.response.render("/templates/home.html", {
           posts: posts,
+          page_title: "bueno",
+          description:
+            "Bueno, a blog about web development with deno and (mostly) without build tools.",
         });
       } else {
         this.response.body = this.response.render("/templates/home.html", {
@@ -28,6 +31,7 @@ export default class HomeResource extends Drash.Http.Resource {
       console.error(error);
       this.response.body = JSON.stringify({ ok: false, error: error });
     }
+    // this.response.headers.append("Content-Encoding", "gzip");
     return this.response;
   }
 

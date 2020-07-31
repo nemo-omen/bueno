@@ -4,7 +4,11 @@ export default class ResourcesResource extends Drash.Http.Resource {
   static paths = ["/resources"];
 
   public async GET() {
-    this.response.body = this.response.render("/templates/resources.html");
+    this.response.body = this.response.render("/templates/resources.html", {
+      page_title: "resources|bueno",
+      description:
+        "A collection of various resources about web development techniques using deno and buildless methods.",
+    });
     return this.response;
   }
 

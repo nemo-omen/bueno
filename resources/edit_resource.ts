@@ -22,7 +22,11 @@ export default class EditResource extends Drash.Http.Resource {
     console.log("/edit post: ", post);
     this.response.body = this.response.render(
       "/templates/edit.html",
-      { post: post },
+      {
+        post: post,
+        page_title: "edit|bueno",
+        description: "Editing an existing blog entry.",
+      },
     );
     return this.response;
   }
