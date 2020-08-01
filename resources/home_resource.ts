@@ -21,6 +21,7 @@ export default class HomeResource extends Drash.Http.Resource {
           page_title: "bueno",
           description:
             "Bueno, a blog about web development with deno and (mostly) without build tools.",
+          customStyleResources: [],
         });
       } else {
         this.response.body = this.response.render("/templates/home.html", {

@@ -14,6 +14,10 @@ export default class CreateResource extends Drash.Http.Resource {
     this.response.body = this.response.render("/templates/create.html", {
       page_title: "create|bueno",
       description: "Create a new blog post",
+      customStyleResources: [
+        `<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">`,
+        `<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">`,
+      ],
     });
     return this.response;
   }

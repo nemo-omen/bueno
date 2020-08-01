@@ -26,6 +26,10 @@ export default class EditResource extends Drash.Http.Resource {
         post: post,
         page_title: "edit|bueno",
         description: "Editing an existing blog entry.",
+        customStyleResources: [
+          `<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">`,
+          `<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">`,
+        ],
         content: rawContent,
       },
     );

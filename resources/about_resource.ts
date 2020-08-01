@@ -8,6 +8,7 @@ export default class AboutResource extends Drash.Http.Resource {
       page_title: "about|bueno",
       description:
         "bueno is a blog about using buildless techniques for web development with deno, a javascript runtime environment.",
+      customStyleResources: [],
     });
 
     return this.response;

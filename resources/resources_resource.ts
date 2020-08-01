@@ -8,6 +8,7 @@ export default class ResourcesResource extends Drash.Http.Resource {
       page_title: "resources|bueno",
       description:
         "A collection of various resources about web development techniques using deno and buildless methods.",
+      customStyleResources: [],
     });
     return this.response;
   }

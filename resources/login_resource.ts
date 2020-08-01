@@ -7,6 +7,7 @@ export default class LoginResource extends Drash.Http.Resource {
     this.response.body = this.response.render("/templates/login.html", {
       page_title: "login|bueno",
       description: "Login!",
+      customStyleResources: [],
     });
 
     return this.response;
