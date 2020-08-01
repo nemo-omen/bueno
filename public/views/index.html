@@ -7,7 +7,7 @@
 
 <body>
     <main>
-        <aside class=" sidebar">
+        <aside class=" sidebar fade-in">
             <% include_partial("/partials/header.html") %>
             <% include_partial("/partials/nav.html") %>
         </aside>
@@ -15,6 +15,12 @@
             <% yield %>
         </section>
     </main>
+    <style>
+        html {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
 </body>
 
 </html>
