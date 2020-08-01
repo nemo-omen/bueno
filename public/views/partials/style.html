@@ -115,6 +115,12 @@
     }
   }
 
+  @media (max-width: 500px) {
+    .sidebar {
+      text-align: center;
+    }
+  }
+
   .sidebar {
     grid-column: 1/4;
     text-align: right;
@@ -131,20 +137,6 @@
     text-decoration: none;
     color: var(--darkGray);
     font-family: 'Quicksand', sans-serif;
-  }
-
-  nav {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-end;
-    letter-spacing: 0.15em;
-    line-height: 1.75rem;
-    margin: 0.5rem 0;
-  }
-
-  nav a {
-    color: var(--darkGray);
   }
 
   .content-section {
@@ -168,7 +160,7 @@
   .button {
     box-sizing: border-box;
     border: none;
-    padding: 0.25rem;
+    padding: 0.125rem 0.25rem;
     line-height: 1rem;
     margin-right: 1rem;
     font-size: 0.75rem;
@@ -178,7 +170,7 @@
     background-color: #fff;
     border-radius: 3px;
     text-shadow: none;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
   }
 
   .button {
@@ -186,28 +178,34 @@
     font-size: 0.75rem;
   }
 
+  button:hover,
   .button:hover {
     text-decoration: none;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2);
   }
 
-  .post-edit-button {
+  .post-edit-button,
+  .post-publish-button {
     border: 1px solid var(--deepBlue-500);
     color: var(--deepBlue-500);
   }
 
-  .post-edit-button:hover {
-    border: 1px solid var(--deepBlue-600);
-    color: var(--deepBlue-600);
+  .post-edit-button:hover,
+  .post-publish-button:hover {
+    border: 1px solid var(--deepBlue-700);
+    color: var(--deepBlue-700);
   }
 
-  .post-revert-button {
+  .post-revert-button,
+  .post-draft-button {
     border: 1px solid var(--primaryGray-700);
     color: var(--primaryGray-700);
   }
 
-  .post-revert-button:hover {
-    border: 1px solid var(--primaryGray-800);
-    color: var(--primaryGray-800);
+  .post-revert-button:hover,
+  .post-draft-button:hover {
+    border: 1px solid var(--primaryGray-900);
+    color: var(--primaryGray-900);
   }
 
   .post-delete-button {
@@ -216,8 +214,8 @@
   }
 
   .post-delete-button:hover {
-    border: 1px solid var(--fireTruck-600);
-    color: var(--fireTruck-600);
+    border: 1px solid var(--fireTruck-700);
+    color: var(--fireTruck-700);
   }
 
   b-post-item-slot {

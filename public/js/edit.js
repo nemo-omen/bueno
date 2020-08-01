@@ -15,27 +15,27 @@ const createdAt = publishSpan.dataset.created_at;
 
 const hiddenText = document.getElementById("hidden-section").innerText;
 
-editor.value = hiddenText;
+editor.value = hiddenText.trim();
 
 const toolbar = document.querySelector(".marky-toolbar");
 
 const secondaryPublishButton = document.querySelector(
-  ".post-publish-secondary-button",
+  ".post-publish-button",
 );
 const secondaryDraftButton = document.querySelector(
-  ".post-draft-secondary-button",
+  ".post-draft-button",
 );
 
 const postId = secondaryPublishButton.dataset.postId;
 
 const customButtonsTemplate = `
-  <button class="post-publish-button" title="Publish" data-postid="${postId}"><i class="fas fa-upload"></i></button>
-  <button class="post-draft-button" title="Save Draft" data-postid="${postId}"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>`;
+  <button class="toolbar-publish-button" title="Publish" data-postid="${postId}"><i class="fas fa-upload"></i></button>
+  <button class="toolbar-draft-button" title="Save Draft" data-postid="${postId}"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>`;
 
 toolbar.insertAdjacentHTML("afterbegin", customButtonsTemplate);
 
-const publishButton = document.querySelector(".post-publish-button");
-const draftButton = document.querySelector(".post-draft-button");
+const publishButton = document.querySelector(".toolbar-publish-button");
+const draftButton = document.querySelector(".toolbar-draft-button");
 
 markdownInput.on("markyblur", (event) => {
   handleSave();
@@ -66,6 +66,7 @@ async function handleSave(id) {
     subtitle: subtitle,
     content: markdownContent,
     excerpt: excerpt,
+    featured_image: featuredImageLocation,
   };
 }
 
@@ -147,5 +148,3 @@ async function handleUpdate(id) {
     }, 5000);
   }
 }
-
-console.log(featuredImageLocation);
