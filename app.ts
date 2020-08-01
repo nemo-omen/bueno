@@ -12,7 +12,7 @@ const server = new Drash.Http.Server({
   directory: Deno.realPathSync("./"),
   response_output: "text/html",
   logger: new Drash.CoreLoggers.ConsoleLogger({
-    enabled: false,
+    enabled: true,
     level: "debug",
   }),
   resources: [
@@ -25,7 +25,7 @@ const server = new Drash.Http.Server({
     UploadResource,
     EditResource,
   ],
-  static_paths: ["/public"],
+  static_paths: ["/public", "/robots.txt"],
   template_engine: true,
   views_path: "./public/views",
 });

@@ -1,0 +1,8 @@
+#Group 1
+User-agent: *
+Disallow: /create
+Disallow: /edit
+Disallow: /js
+Disallow: /css
+Disallow: /assets
+Disallow: /img
