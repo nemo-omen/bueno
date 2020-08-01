@@ -1,6 +1,7 @@
 <% extends("/index.html") %>
 <% include_partial("/partials/marky_style.html") %>
 <% include_partial("/partials/edit_style.html") %>
+<% include_partial("/partials/trix_style.html") %>
 
 <script src="/public/js/edit.js" type="module"></script>
 <script src="/public/js/image_upload.js" type="module"></script>
@@ -25,6 +26,9 @@
     <a href="/<% post.slug %>">View post</a>
   </section>
   <section class="markdown-input" data-content="<% post.content %>" animate__animated animate__fadeInUp></section>
+  <pre id="hidden-section" style="display: none;">
+    <% post.content %>
+  </pre>
   <section class="post-create-secondary-control">
     <button class="post-draft-secondary-button" data-postid="<% post.id %>">Draft</button>
     <button class="post-publish-secondary-button" data-postid="<% post.id %>">Update</button>

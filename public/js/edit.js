@@ -13,7 +13,9 @@ const updateDateSpan = document.querySelector(".update-date");
 const publishSpan = document.querySelector(".publish-date");
 const createdAt = publishSpan.dataset.created_at;
 
-editor.value = markdownElement.dataset.content;
+const hiddenText = document.getElementById("hidden-section").innerText;
+
+editor.value = hiddenText;
 
 const toolbar = document.querySelector(".marky-toolbar");
 

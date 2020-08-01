@@ -18,12 +18,15 @@ export default class EditResource extends Drash.Http.Resource {
       update_date_string: moment(response.result[0].updated_at).format("LLL"),
     };
     console.log("/edit post: ", post);
+    const rawContent = post.content;
+    console.log("Raw Content length: ", rawContent.length);
     this.response.body = this.response.render(
       "/templates/edit.html",
       {
         post: post,
         page_title: "edit|bueno",
         description: "Editing an existing blog entry.",
+        content: rawContent,
       },
     );
     return this.response;

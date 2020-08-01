@@ -1,5 +1,8 @@
 import { v4, moment, slugify } from "../deps.ts";
 import { PgService } from "../services/postgres_service.ts";
+import { Logger } from "../services/logger_service.ts";
+
+const logger = new Logger();
 
 // make a new postgres service
 const pg = new PgService();
@@ -38,8 +41,8 @@ export class Post {
       content,
       featured_image,
       slug,
-      created_at,
-      updated_at,
+      // created_at,
+      // updated_at,
       publish_date_string,
     }: PostOptions,
   ) {
@@ -53,8 +56,8 @@ export class Post {
         content,
         featured_image,
         slug,
-        created_at,
-        updated_at,
+        // created_at,
+        // updated_at,
         publish_date_string,
       },
     );
@@ -69,16 +72,6 @@ export class Post {
       this.generateSlug();
     } else {
       this.slug = slug;
-    }
-    // if (created_at) {
-    //   this.created_at = created_at;
-    // } else {
-    //   this.generateCreatedAt();
-    // }
-    if (!updated_at) {
-      this.updated_at = this.created_at;
-    } else {
-      this.updated_at = updated_at;
     }
     if (!publish_date_string) {
       this.generatePublishDateString();
@@ -124,14 +117,18 @@ export class Post {
     this.created_at = moment().toISOString();
     this.updated_at = moment().toISOString();
     const response = await pg.create(this);
-    if (response.ok) {
-      return {
-        ok: true,
-        slug: this.slug,
-        updated_at: this.updated_at,
-      };
-    } else {
-      return ({ ok: false });
+    try {
+      if (response.ok) {
+        return {
+          ok: true,
+          slug: this.slug,
+          updated_at: this.updated_at,
+        };
+      } else {
+        return { ok: false };
+      }
+    } catch (error) {
+      logger.error(error);
     }
   }
 
@@ -152,7 +149,7 @@ export class Post {
         return { ok: false, response: response };
       }
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return { ok: false, error: error };
     }
   }
@@ -160,14 +157,13 @@ export class Post {
   static async remove(id: string) {
     try {
       const response = await pg.delete(id);
-
       if (response.ok) {
         return response;
       } else {
-        return { ok: false };
+        return { ok: false, response: response };
       }
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return { ok: false, error: error };
     }
   }

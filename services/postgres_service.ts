@@ -2,6 +2,9 @@ import { load } from "../deps.ts";
 import { Client } from "../deps.ts";
 import { QueryResult } from "../deps.ts";
 import { Post } from "../models/post.ts";
+import { Logger } from "./logger_service.ts";
+
+const logger = new Logger();
 
 load();
 
@@ -24,7 +27,7 @@ export class PgService {
         return response.result;
       }
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return { ok: false, error: error };
     }
   }
@@ -37,21 +40,21 @@ export class PgService {
       );
       return response;
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return { ok: false, error: error };
     }
   }
 
   async create(post: Post) {
     const myQuery = this.buildQuery("posts", "INSERT", post);
-    console.log("Create post: ", post);
-    console.log(myQuery);
+    logger.info("Create post: ", post);
+    logger.info("Query", myQuery);
     try {
       const response = await this.executeQuery(myQuery);
-      console.log(response);
+      console.info("Create Query Response", response);
       return response;
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return { ok: false, error: error };
     }
   }
@@ -61,10 +64,10 @@ export class PgService {
     console.log(myQuery);
     try {
       const response = await this.executeQuery(myQuery);
-      console.log(response);
+      logger.info("Update Query Response", response);
       return response;
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return { ok: false, error: error };
     }
   }
@@ -75,9 +78,10 @@ export class PgService {
       const response = await this.executeQuery(
         `DELETE FROM posts WHERE id = '${id}' RETURNING *;`,
       );
+      logger.info("Delete Query Response", response);
       return response;
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return { ok: false, error: error };
     }
   }
@@ -89,16 +93,18 @@ export class PgService {
         ? await client.query(query)
         : await client.query(query, options);
       const returnedResult = this.objectify(result);
-      console.log(returnedResult);
+      logger.info("Executed Query", returnedResult);
       if (result.rowCount > 0) {
         await client.end();
+        logger.success("Query success", returnedResult);
         return { ok: true, result: returnedResult };
       } else {
         await client.end();
+        logger.error(returnedResult);
         return { ok: false, result: returnedResult };
       }
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return { ok: false, error: error };
     }
   }
