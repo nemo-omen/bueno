@@ -4,7 +4,10 @@ export default class LoginResource extends Drash.Http.Resource {
   static paths = ["/login"];
 
   public async GET() {
-    this.response.body = this.response.render("/templates/login.html");
+    this.response.body = this.response.render("/templates/login.html", {
+      page_title: "login|bueno",
+      description: "Login!",
+    });
 
     return this.response;
   }

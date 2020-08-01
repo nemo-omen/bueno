@@ -1,8 +1,40 @@
 <% extends("/index.html") %>
+<style>
+	#login-section {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+		gap: 1rem;
+	}
 
-<section id="login-section">
+	#login-section h2 {
+		text-align: center;
+	}
+
+	#login-section input {
+		font-size: 1rem;
+		padding: 0.25rem;
+		border: 1px solid var(--primaryGray-500);
+	}
+
+	#login-section button {
+		color: var(--primaryGray-200);
+		background-color: var(--deepBlue-500);
+		/* font-size: 1rem; */
+		/* padding: 0.25rem; */
+	}
+
+	@media (max-width: 500px) {
+		#login-section {
+			justify-content: center;
+			align-items: center;
+		}
+	}
+</style>
+<section id="login-section" class="showHide slide-in-right">
 	<h2>Log in</h2>
-	<input type="text" name="username" id="username">
-	<input type="text" name="password" id="password" hidden="true">
-	<button id="login-button">Go</button>
+	<input type="text" name="username" id="username" placeholder="Username">
+	<input type="text" name="password" id="password" placeholder="Password">
+	<button id="login-button">Login</button>
 </section>

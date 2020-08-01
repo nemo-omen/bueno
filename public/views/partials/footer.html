@@ -1,0 +1,30 @@
+<style>
+  #footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    grid-row: 2/3;
+    grid-column: 1/4;
+    padding: 4rem 0 0 0;
+    opacity: 0;
+    transition-property: all;
+    transition-duration: 300ms;
+  }
+
+  @media (max-width: 500px) {
+    #footer {
+      border-top: 1px solid var(--darkGray);
+      border-bottom: 1px solid var(--darkGray);
+    }
+  }
+
+  #footer:hover {
+    opacity: 1;
+  }
+</style>
+
+<footer id="footer">
+  <a href="/create">Create</a>
+  <a href="/login">Login</a>
+</footer>
