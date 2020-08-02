@@ -24,6 +24,9 @@
 </style>
 
 <footer id="footer">
+  <% if (auth) { %>
   <a href="/create">Create</a>
+  <% } else { %>
   <a href="/login">Login</a>
+  <% } %>
 </footer>

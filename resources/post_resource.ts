@@ -29,6 +29,7 @@ export default class PostResource extends Drash.Http.Resource {
       page_title: post.title,
       description: post.excerpt ? post.excerpt : post.content.substring(0, 200),
       customStyleResources: [],
+      auth: true,
     });
 
     return this.response;

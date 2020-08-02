@@ -31,6 +31,7 @@ export default class EditResource extends Drash.Http.Resource {
           `<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">`,
         ],
         content: rawContent,
+        auth: true
       },
     );
     return this.response;
