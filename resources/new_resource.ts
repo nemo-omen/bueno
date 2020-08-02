@@ -4,15 +4,14 @@ import { PgService } from "../services/postgres_service.ts";
 import { Post } from "../models/post.ts";
 
 const pg: PgService = new PgService();
-// const ps = new PostsService();
 
-export default class CreateResource extends Drash.Http.Resource {
-  static paths = ["/create"];
+export default class NewResource extends Drash.Http.Resource {
+  static paths = ["/new"];
 
   public async GET() {
     console.log("create Get requested");
-    this.response.body = this.response.render("/templates/create.html", {
-      page_title: "create|bueno",
+    this.response.body = this.response.render("/templates/new.html", {
+      page_title: "new|bueno",
       description: "Create a new blog post",
       customStyleResources: [
         `<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">`,

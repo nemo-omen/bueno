@@ -1,13 +1,22 @@
 import { Drash } from "../deps.ts";
 
 export default class LoginResource extends Drash.Http.Resource {
-  static paths = ["/login"];
+  static paths = ["/login", "login/:authParam"];
 
   public async GET() {
+    const authParam = this.request.getPathParam('authParam');
+    console.log('authParam: ', authParam);
+    let auth = false;
+    if(!authParam) {
+      auth = false;
+    }else{
+      auth = true;
+    }
     this.response.body = this.response.render("/templates/login.html", {
       page_title: "login|bueno",
       description: "Login!",
       customStyleResources: [],
+      auth: auth
     });
 
     return this.response;

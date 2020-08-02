@@ -21,15 +21,16 @@ export default class PostResource extends Drash.Http.Resource {
 
     const post: any = {
       ...returnedPost,
-      content: parsed,
+      content: parsed.content,
     };
 
+    console.log('Parsed: ', parsed);
     this.response.body = this.response.render("/templates/post.html", {
       post: post,
       page_title: post.title,
       description: post.excerpt ? post.excerpt : post.content.substring(0, 200),
       customStyleResources: [],
-      auth: false,
+      auth: true,
     });
 
     return this.response;

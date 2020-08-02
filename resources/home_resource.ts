@@ -22,7 +22,7 @@ export default class HomeResource extends Drash.Http.Resource {
           description:
             "Bueno, a blog about web development with deno and (mostly) without build tools.",
           customStyleResources: [],
-          auth: false,
+          auth: true,
         });
       } else {
         this.response.body = this.response.render("/templates/home.html", {

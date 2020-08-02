@@ -78,7 +78,7 @@ async function handlePublish() {
   };
   try {
     // setStatus("Loading", { data: "Data Loading..." });
-    const response = await fetch("/create", {
+    const response = await fetch("/new", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

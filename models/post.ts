@@ -88,7 +88,7 @@ export class Post {
     const strippedTitleString = this.title.replace(
       "[^0-9a-zA-Z]+",
       "",
-    );
+    ).replace('?', '');
 
     this.slug = slugify(
       strippedTitleString,

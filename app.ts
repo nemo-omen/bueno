@@ -1,6 +1,6 @@
 import { Drash } from "./deps.ts";
 import HomeResource from "./resources/home_resource.ts";
-import CreateResource from "./resources/create_resource.ts";
+import NewResource from "./resources/new_resource.ts";
 import PostResource from "./resources/post_resource.ts";
 import ResourcesResource from "./resources/resources_resource.ts";
 import AboutResource from "./resources/about_resource.ts";
@@ -17,7 +17,7 @@ const server = new Drash.Http.Server({
   }),
   resources: [
     HomeResource,
-    CreateResource,
+    NewResource,
     ResourcesResource,
     AboutResource,
     LoginResource,
