@@ -66,7 +66,7 @@
     <p slot="post-excerpt"><a href="/<% posts[index].slug %>"
         name="<% posts[index].title %>"><% posts[index].excerpt ? posts[index].excerpt : posts[index].content.substring(0, 150) %>
         ...</a></p>
-    <% if (auth) { %>
+    <% if (auth ===true) { %>
     <footer class="post-list-item-footer">
       <section class="post-control-section">
         <a class="button post-edit-button" href="/edit/<% posts[index].id %>" name="Edit" title="Edit">Edit</a>
